@@ -4,6 +4,7 @@
 #include <cmath>
 #include <climits>
 #include <string>
+#include "datafile.h"
 
 using namespace std;
 
@@ -61,8 +62,9 @@ const fattori fattori::operator*(const double &other) const {
 	return result;  
 }
 
-const string datafname = "data/?.dat";
 
+
+//!!! Questa funzione e' stata sostituita con load_file da datafile.h, con allocazione dinamica
 //ficca in Dati[] i dati registrati
 int leggi(double Dati[], int max, string fname=datafname)
 {
@@ -78,6 +80,7 @@ int leggi(double Dati[], int max, string fname=datafname)
 	f.close();
 	return N;
 }
+
 
 //calcola la posizione dell'elemento corrispondente al compton edge del 511 keV 
 int edge1(fattori fit, int N) {
@@ -204,10 +207,12 @@ void minimize_chi2(int N, double Dati[], fattori fit1, fattori fit2, fattori & b
 }	
 
 
-void fit(int N, double Dati[], fattori fitbeg, fattori fitend, fattori & best, double npassi, int iterazioni)
+void fit(int N, double Dati[], fattori fitbeg, fattori fitend, fattori * best, double npassi, int iterazioni)
 {
 	fattori lbounds, ubounds, tmpbest, semidelta;
 
+	cout << "* fit iterativo..." << endl;
+	cout << "num passi: " << npassi << "; iterazioni: "<< iterazioni << endl;
 
 
 	lbounds = fitbeg;
@@ -215,7 +220,7 @@ void fit(int N, double Dati[], fattori fitbeg, fattori fitend, fattori & best, d
 
 	for(int it=0; it<iterazioni; it++)
 	{
-		cout << "Iterazione di fit " << it << "..." << endl;
+		cout << "* Iterazione di fit " << it << "/" << iterazioni << endl;
 		minimize_chi2(N,Dati, lbounds, ubounds, tmpbest, npassi);
 
 		semidelta = (ubounds-lbounds)* (0.5/npassi);
@@ -224,6 +229,8 @@ void fit(int N, double Dati[], fattori fitbeg, fattori fitend, fattori & best, d
 		ubounds = tmpbest + semidelta;
 
 	}
+	
+	(*best) = tmpbest;
 }
 
 void salva_array(int N, double arr[], string filename, string comment = "")
@@ -237,9 +244,56 @@ void salva_array(int N, double arr[], string filename, string comment = "")
 	file.close();
 
 }
-void analisi()
+
+void salva_fattori(fattori tos, string filename, string comment)
 {
-	0;
+		ofstream f(filename.c_str());
+		f << "#" << comment;
+		f << tos.E << endl;
+		f << tos.x << endl;
+		f << tos.y << endl;
+		f << tos.k << endl;
+		f << tos.sigma << endl;
+		f << tos.S << endl;
+		
+		f.close();
+}
+
+void analisi(string fname)
+{
+	cout << "Fit compton di " << fname << "..." << endl;
+	cout << "* caricamento file...";
+	double * Dati;
+	int N = loadfile(Dati,fname);
+	cout << " " << N << " dati caricati." << endl;
+	
+	
+	fattori bestfat;
+	
+	//fattori di bound a caso, CAMBIARE!!!
+	fattori fit1,fit2;
+		fit1.E=50;
+		fit1.x = 0.5;
+		fit1.y = 100000000;
+		fit1.k = 0.0005;
+		fit1.sigma = 5;
+		fit1.S = 1000;
+		fit2.E=300;
+		fit2.x = 1.5;
+		fit2.y = 400000000;
+		fit2.k = 0.01;
+		fit2.sigma = 50;
+		fit2.S = 1000;
+	
+	
+	fit( N, Dati, fit1, fit2, &bestfat, 3, 5);
+	
+	string outfname = "tmp/" + fname + ".cfit";
+	
+	cout << "fit terminato. Salvo in " << outfname << endl;
+	
+	salva_fattori(bestfat, outfname, "fattori risultanti dal fit di "+ fname);
+	
 }
 
 int test_random()
@@ -260,6 +314,8 @@ int test_random()
 	for(i=0;i<N;i++){
 		B[i] = (rand() % 11 + 95)/100.0*(B[i]);}
 	//cout << i << "     " << B[i] << endl;}
+
+	salva_array(N,B, "tmp/randomcompton", "curva Compton simulata da bin/comptonfit. Generata con bin/comptonfit test");
 
 
 
@@ -320,13 +376,13 @@ int test_convoluzione()
 }
 
 
-const string helpstring = "programma di fit del profilo compton\n\nUtilizzo:\n\ncomptonfit\t\t\tcarica i dati da XXX, esegui il fit e salva in YYY\n\ncomptonfit test\t\t\tesegui un test con dati generati e stampa a terminale i risultati\n\ncomptonfit h\t\t\tstampa questo messaggio.";
+const string helpstring = "programma di fit del profilo compton\n\nUtilizzo:\n\ncomptonfit XXX \t\t\tcarica i dati da XXX, esegui il fit e salva in tmp/XXX.cfit\n\ncomptonfit test\t\t\tesegui un test con dati generati (salvati in tmp/randomcompton) e stampa a terminale i risultati\n\ncomptonfit h\t\t\tstampa questo messaggio.";
 
 int main(int argcount, char* argv[])
 {
 	if (argcount<=1)
 	{
-		analisi();
+		cout << "comptonfit ERRORE: sono un po' troppo pochi gli argomenti... prova bin/comptonfit analisi nomefiledati. E non demoralizzarti. Sei bravissimo." << endl;
 		exit(0);
 	}
 	else
@@ -335,8 +391,16 @@ int main(int argcount, char* argv[])
 
 		if(command == "analisi")
 		{
-			analisi();
-			exit(0);
+			if (argcount <=2)
+			{
+				cout << "comptonfit ERRORE: file dati non specificato." << endl;
+				exit(1);
+			}
+			else
+			{
+				analisi(argv[2]);
+				exit(0);
+			}
 		}
 
 		if(argcount >= 3)
@@ -351,7 +415,7 @@ int main(int argcount, char* argv[])
 			test_random();
 			exit(0);
 		}
-		if(command == "h")
+		if((command == "h") or (command == "-h") or (command == "--help") or (command == "?") or (command == "-?"))
 		{
 			cout << helpstring << endl;
 			exit(0);

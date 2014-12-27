@@ -1,4 +1,4 @@
 *.swp
 bin/
 bin/*
-data/*
+src/*.swp
