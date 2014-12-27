@@ -1,5 +1,4 @@
 *.swp
-bin/
 bin/*
 src/*.swp
 build/*
