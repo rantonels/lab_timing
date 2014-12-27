@@ -10,7 +10,7 @@ int loadfile(double * a, string fname, int buffersize)
 	ifstream f(fname.c_str());
 	if(!f.is_open())
 	{
-		cout << "comptonfit ERRORE: errore nella lettura di " << fname << ": file non aperto" << endl;
+		cout << "datafile ERRORE: errore nella lettura di " << fname << ": file non aperto" << endl;
 		exit(1);
 	}
 	int n = 0;
