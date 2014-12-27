@@ -382,7 +382,7 @@ int main(int argcount, char* argv[])
 {
 	if (argcount<=1)
 	{
-		cout << "comptonfit ERRORE: sono un po' troppo pochi gli argomenti... prova bin/comptonfit analisi nomefiledati. E non demoralizzarti. Sei bravissimo." << endl;
+		cerr << "comptonfit ERRORE: sono un po' troppo pochi gli argomenti... prova bin/comptonfit analisi nomefiledati. E non demoralizzarti. Sei bravissimo." << endl;
 		exit(0);
 	}
 	else
@@ -393,7 +393,7 @@ int main(int argcount, char* argv[])
 		{
 			if (argcount <=2)
 			{
-				cout << "comptonfit ERRORE: file dati non specificato." << endl;
+				cerr << "comptonfit ERRORE: file dati non specificato." << endl;
 				exit(1);
 			}
 			else
@@ -405,7 +405,7 @@ int main(int argcount, char* argv[])
 
 		if(argcount >= 3)
 		{
-			cout << "comptonfit ERRORE: troppi argomenti in linea di comando." << endl;
+			cerr << "comptonfit ERRORE: troppi argomenti in linea di comando." << endl;
 			exit(1);
 		};
 
@@ -421,7 +421,7 @@ int main(int argcount, char* argv[])
 			exit(0);
 		}
 		//default
-		cout << "comptonfit ERRORE: comando non riconosciuto: \"" << command << "\"" << endl;
+		cerr << "comptonfit ERRORE: comando non riconosciuto: \"" << command << "\"" << endl;
 		exit(1);
 
 	}

@@ -5,10 +5,32 @@
 #include <cstdlib>
 #include <iostream>
 
+#include <fstream>
+#include <string>
+
+
 const char * HNAMES [] = { "h0", "h1", "h2", "h3"};
 const char * CNAMES [] = { "ch0", "ch1", "ch2", "ch3"};
 
 int main(int argc, char** argv) {
+
+	if(argc<2)
+	{
+		std::cerr << "root2csv ERRORE: argomenti insufficienti.\n";
+		exit(1);
+	}
+	
+	if(argc>4)
+	{
+		std::cerr << "root2csv ERRORE: troppi argomenti in linea di comando.\n";
+		exit(1);
+	}
+	
+	bool CLIMODE;
+	
+	CLIMODE = argc < 3;
+	
+
     TFile file(argv[1]);
     TNtuple* tuple = reinterpret_cast<TNtuple*>(file.Get("pjmca"));
     Float_t ch0;
@@ -21,17 +43,43 @@ int main(int argc, char** argv) {
     tuple->SetBranchAddress("ch3", &ch3);
     int n = tuple->GetEntries();
 
+	// preparazione file di output
+	std::ofstream outf;
+	std::string outfnames [4];
+	if (not CLIMODE)
+	{
+		for (int i =0; i<4; i++)
+			outfnames[i] = std::string(argv[2])+"_"+std::string(HNAMES[i]);
+	}
+	
+
     for (int faggot = 0; faggot < 4; ++faggot)
     {
-
-
-
-        std::cout << "###" << CNAMES[faggot] << "###" << std::endl;
+		
+		if (CLIMODE)
+			std::cout << "###" << CNAMES[faggot] << "###" << std::endl;
+        
         TH1D histogram(HNAMES[faggot], HNAMES[faggot], 2000, 0, 2000);
         tuple->Project(HNAMES[faggot], CNAMES[faggot]);
-        for (int i = 0; i < histogram.GetNbinsX(); ++i) {
-            std::cout << i << " " << histogram.GetBinContent(i) << std::endl;
-        }            
+        
+        
+        if (CLIMODE)
+        {
+			for (int i = 0; i < histogram.GetNbinsX(); ++i) {
+				std::cout << i << " " << histogram.GetBinContent(i) << std::endl;
+			}
+        }    
+        else
+        {
+			outf.open(outfnames[faggot].c_str());
+		
+			for(int i= 0; i<histogram.GetNbinsX(); ++i)
+				outf << histogram.GetBinContent(i) << std::endl;
+				
+			outf.close();
+		}
+		
+	
     }
     //for (int i = 0; i < n; ++i) {
     //int read = tuple->GetEntry(i);

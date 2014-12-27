@@ -1,21 +1,33 @@
 MKDIR_P = mkdir -p
 DIRS = bin build out tmp
+FLAGS = -std=c++0x
+GCC = g++ $(FLAGS)
+
 .PHONY: directories
 
-all: bin/comptonfit
+all: bin/comptonfit bin/root2csv
 
 #datafile
 
 build/datafile.o: src/datafile.cxx
-	g++ -c src/datafile.cxx -o build/datafile.o
+	$(GCC) -c src/datafile.cxx -o build/datafile.o
 
 #comptonfit
 
 build/comptonfit.o:	src/comptonfit.cxx src/datafile.h
-	g++ -c src/comptonfit.cxx -o build/comptonfit.o
+	$(GCC) -c src/comptonfit.cxx -o build/comptonfit.o
 
 bin/comptonfit: build/comptonfit.o build/datafile.o
-	g++ build/datafile.o build/comptonfit.o -o bin/comptonfit
+	$(GCC) build/datafile.o build/comptonfit.o -o bin/comptonfit
+
+#root2csv
+
+R_CFLAGS = $(shell root-config --cflags)
+R_LIBS   = $(shell root-config --libs)
+R_GLIBS  = $(shell root-config --glibs)
+
+bin/root2csv: src/root2csv.cxx
+	$(GCC) $(R_CFLAGS) src/root2csv.cxx -o bin/root2csv $(R_LIBS)
 
 #cleanup
 

@@ -98,3 +98,23 @@ esegui un test con dati generati (che salva in tmp/randomcompton) e stampa a ter
 ###datafile
 
 datafile.h è un header per caricare file di dati testuali in array c++. Questo header è preferibile perché è in grado di rimuovere righe vuote e righe di commenti (prefissate con il cancelletto). È usato da comptonfit.
+
+###root2csv
+
+Apre un file root a quattro canali, genera gli istogrammi e li esporta in file di dati testuali.
+
+Per esaminare gli istogrammi di un file:
+
+```bash
+bin/root2csv XXX
+```
+
+carica il file di root XXX e stampa a terminale gli isto dei quattro canali (non salva niente)
+
+```bash
+bin/root2csv XXX YYY
+```
+
+carica XXX, genera gli isto e li salva nei file YYY_h0, YYY_h1, eccetera. Non stampa niente a terminale.
+
+**Nota Bene:** Come specificato sopra, è bene che XXX sia nella cartella data/ e YYY nella cartella tmp/. I dati grezzi e qualsiasi rielaborazione di essi devono rimanere separati. È importante poter cancellare tutti i prodotti dell'analisi senza paura di intaccare i dati di laboratorio. Inoltre, in caso di corruzione/modifica dei dati, è molto facile ripristinarli dalla cartella Dropbox.
