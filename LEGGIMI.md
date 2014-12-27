@@ -45,11 +45,11 @@ make
 
 ##Struttura progetto
 
-Nella cartella del progetto trovate le seguenti cartelle:
+Nella cartella del progetto, a fine compilazione, trovate le seguenti cartelle:
 
 ###bin/
 
-I binari c++ compilati. Questa cartella è vuota e viene popolata al momento della compilazione.
+I binari c++ compilati.
 
 *OH NO! DOVE È FINITO IL MIO a.out?*
 
@@ -57,7 +57,7 @@ I binari c++ compilati. Questa cartella è vuota e viene popolata al momento del
 
 ###build/
 
-Oggetti temporanei della compilazione.
+Oggetti temporanei della compilazione. Ignorare.
 
 ###src/
 
@@ -69,7 +69,7 @@ Cartella dedicata esclusivamente ai **dati grezzi**. Tutti e soli i **dati grezz
 
 ###tmp/
 
-Cartella per i file temporanei dell'analisi. Ad esempio, file prodotti dal programma numero 3 che servono al programma numero 5. Qui possono anche starci eventuali file di debug o test o log prodotti dai programmi. Tenete conto che un file messo in questa cartella non è al sicuro, ed è a rischio di essere cancellato.
+Cartella per i file temporanei dell'analisi. Ad esempio, file prodotti dal programma numero 3 che servono al programma numero 5. Qui possono anche starci eventuali file di debug o test o log prodotti dai programmi. Tenete conto che un file messo in questa cartella non è al sicuro fra un esecuzione dell'analisi ed un'altra, ed è a rischio di essere cancellato. Tutti i file intermedi dovrebbero in teoria essere prodotti automaticamente senza intervento manuale da programmi chiamati dallo script di analisi.
 
 ###out/
 
