@@ -7,7 +7,13 @@ using namespace std;
 
 const string datafname = "data/?.dat";
 
-int loadfile(double * a, string fname=datafname, int buffersize=100000);
+struct FileArray{
+	public:
+		int N;
+		double * array;
+};
+
+FileArray loadfile(string fname=datafname, int buffersize=100000);
 
 
 

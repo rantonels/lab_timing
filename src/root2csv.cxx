@@ -17,12 +17,22 @@ int main(int argc, char** argv) {
 	if(argc<2)
 	{
 		std::cerr << "root2csv ERRORE: argomenti insufficienti.\n";
+		std::cerr << "dettagli: solo " << argc << " argomenti (incluso il nome dell'eseguibile), in particolare:\n";
+		for(int i = 0; i< argc; i++)
+		{
+			std::cerr << i << "\t" << argv[i] << "\n";
+		}
 		exit(1);
 	}
 	
 	if(argc>4)
 	{
 		std::cerr << "root2csv ERRORE: troppi argomenti in linea di comando.\n";
+		std::cerr << "dettagli: ben " << argc << " argomenti (incluso il nome dell'eseguibile), in particolare:\n";
+		for(int i = 0; i< argc; i++)
+		{
+			std::cerr << i << "\t" << argv[i] << "\n";
+		}
 		exit(1);
 	}
 	
@@ -79,7 +89,6 @@ int main(int argc, char** argv) {
 			outf.close();
 		}
 		
-	
     }
     //for (int i = 0; i < n; ++i) {
     //int read = tuple->GetEntry(i);

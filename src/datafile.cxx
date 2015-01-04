@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 //nuova funzione per caricare i file in un array
-int loadfile(double * a, string fname, int buffersize)
+FileArray loadfile(string fname, int buffersize)
 {
 	double buffer[buffersize];
 	ifstream f(fname.c_str());
@@ -17,6 +17,10 @@ int loadfile(double * a, string fname, int buffersize)
 	int n = 0;
 	while(n < buffersize)
 	{
+		
+		if(f.eof())
+			break;
+		
 		string line;
 		f >> line;
 		
@@ -37,15 +41,18 @@ int loadfile(double * a, string fname, int buffersize)
 		}
 	
 		
-		if(f.eof())
-			break;
-		n++;
+		
+		
 	}
 	f.close();
 
-	a = new double[n];
+	double * a = new double[n];
 	for(int i=0; i<n; i++)
 		a[i] = buffer[i];
 
-	return n;
+	FileArray fr;
+	fr.N = n;
+	fr.array = a;
+
+	return fr;
 }

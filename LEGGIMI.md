@@ -40,8 +40,13 @@ make
 
 ###Analisi Dati
 
-**NB: lo script di analisi non è ancora pronto**
+Eseguire
 
+```bash
+python analisi.py
+```
+
+e fa tutto lui! Non ripete di nuovo parti di analisi già fatte. Per forzare il ricalcolo, cancellare il contenuto della cartella tmp/
 
 ##Struttura progetto
 
