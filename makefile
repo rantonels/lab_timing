@@ -1,6 +1,6 @@
 MKDIR_P = mkdir -p
 DIRS = bin build out tmp
-FLAGS = -std=c++0x
+FLAGS = -std=c++0x -O3
 GCC = g++ $(FLAGS)
 
 .PHONY: directories
