@@ -13,62 +13,12 @@ using namespace std;
 const int comp_edge1 = 340;
 const int comp_edge2 = 1062;
 
-#define LORENTZIAN 1 //commentare per tornare alla gaussiana, decommentare per la lorentziana
+//#define LORENTZIAN 1 //commentare per tornare alla gaussiana, decommentare per la lorentziana
 
 double sqr(double r)
 {
 	return r*r;
 }
-
-
-//tutto cio' che riguarda le gaussiane
-
-const int GAUSS_STEPS 	= 500;	//numero di entrate per stdev nella lookup table
-const int GAUSS_STDEVS 	= 5;	//numero di deviazioni standard nella tabella
-const int GAUSS_TSIZE 	= GAUSS_STEPS * GAUSS_STDEVS;
-
-float gaussiana(float t, float sigma)
-{
-	return exp(-0.5 * sqr(t/sigma))/(sigma*sqrt(2*M_PI));
-}
-
-
-class Gaussianatore {
-	private:
-		double lutb[GAUSS_TSIZE];
-	public:
-		Gaussianatore();
-		double gaussiamelo(float t, float stdev);
-
-};
-
-Gaussianatore::Gaussianatore(){
-	cout << "Inizializzo il gaussianatore..." << endl;
-	for (int i = 0; i<GAUSS_TSIZE; i++)
-		{
-			lutb[i] = gaussiana(float(i)/GAUSS_STEPS,1);
-		};
-	cout << "Inizializzazione lookup table completata." << endl;
-}
-
-double Gaussianatore::gaussiamelo(float t,float stdev)
-{
-
-//	cout << "richiesti servigi del gaussianatore: " << t << " " << stdev << endl << flush;
-
-	float cstdev = max(stdev,1.F);
-
-	double result =  lutb[
-		min(GAUSS_TSIZE-1,
-				(int)(abs(t)/cstdev*GAUSS_STEPS)
-				)
-	]/cstdev;
-
-//	cout << "computato resultato del gauss...ntore" << endl << flush;
-	return result;
-};
-
-Gaussianatore gaussianator;
 
 /*Contiene i fattori del fit: energia del canale 0, rapporto eventi fotone 511 e 1275 keV, 
   fattore di scala x e y, sigma gaussiana che tiene conto della risoluzione energetica. 
@@ -105,9 +55,9 @@ double fattori::x()
 
 const fattori fattori::operator+(const fattori &other) const {
 	fattori result = *this;   
-	result.e1 += other.e1;
+	result.E += other.E;
 	result.k += other.k;
-	result.e2 += other.e2;
+	result.x += other.x;
 	result.y += other.y;
 	result.sigma += other.sigma;
 
@@ -116,9 +66,9 @@ const fattori fattori::operator+(const fattori &other) const {
 
 const fattori fattori::operator-(const fattori &other) const {
 	fattori result = *this;   
-	result.e1 -= other.e1;
+	result.E -= other.E;
 	result.k -= other.k;
-	result.e2 -= other.e2;
+	result.x -= other.x;
 	result.y -= other.y;
 	result.sigma -= other.sigma;
 
@@ -127,9 +77,9 @@ const fattori fattori::operator-(const fattori &other) const {
 
 const fattori fattori::operator*(const double &other) const {
 	fattori result = *this;   
-	result.e1 *= other;
+	result.E *= other;
 	result.k *= other;
-	result.e2 *= other;
+	result.x *= other;
 	result.y *= other;
 	result.sigma *= other;
 
@@ -140,7 +90,7 @@ string fattorirep(fattori f)
 {
 	ostringstream strs;
 	
-	strs << "e1=" << f.e1 << ",\te2=" << f.e2 << ",\tk=" << f.k << ",\ty=" << f.y << ",\tsigma/gamma=" << f.sigma;
+	strs << f.E << "," << f.k << "," << f.x << "," << f.y << "," << f.sigma;
 	
 	return strs.str();
 	
@@ -149,9 +99,9 @@ string fattorirep(fattori f)
 fattori trim(fattori f)
 {
 	fattori o = {
-				max(0.,f.e1), 
-				max(0.,f.e2), 
+				f.E, //max(0.,f.E), //che succede se non trimmiamo E?
 				max(0.,f.k), 
+				max(0.,f.x),
 				max(0.,f.y), 
 				max(0.,f.sigma),
 				f.S
@@ -177,22 +127,21 @@ int leggi(double Dati[], int max, string fname=datafname)
 }
 
 
-////calcola la posizione dell'elemento corrispondente al compton edge del 511 keV 
-//int edge1(fattori fit, int N) {
-	//double a;
-	//if (int((comp_edge1-fit.E)/fit.x)<N )      a= int((comp_edge1-fit.E)/fit.x);
-	//else a= N;
-	//return a;
-//}
+//calcola la posizione dell'elemento corrispondente al compton edge del 511 keV 
+int edge1(fattori fit, int N) {
+	double a;
+	if (int((comp_edge1-fit.E)/fit.x)<N )      a= int((comp_edge1-fit.E)/fit.x);
+	else a= N;
+	return a;
+}
 
-////analogo per 1275
-//int edge2(fattori fit, int N) {
-	//double a;
-	//if (int((comp_edge2-fit.E)/fit.x)<N)       a= int((comp_edge2-fit.E)/fit.x);
-	//else a= N;
-	//return a;
-//}
-
+//analogo per 1275
+int edge2(fattori fit, int N) {
+	double a;
+	if (int((comp_edge2-fit.E)/fit.x)<N)       a= int((comp_edge2-fit.E)/fit.x);
+	else a= N;
+	return a;
+}
 
 /*Riempie l'array A con il profilo compton generato dai due fotoni, 
   k definisce il rapporto tra le probabilità che un evento registrato 
@@ -201,15 +150,13 @@ double * profilo(int N, fattori fit)
 {
 	double * A = new double[N];
 	
-	double fitE = fit.E();
-	double fitx = fit.x();
 	
 	for (int i=0; i<N; i++)
 		A[i] = 0;
 		
-	for (int i=0; i<min((int)fit.e1,N); i++)
+	for (int i=0; i<min(edge1(fit,N),N); i++)
 		{
-			double E = fitE + fitx*i;
+			double E = fit.E + fit.x*i;
 			double tmp1 = 2-2*E/(511.0-E)+E*E/((511.0-E)*(511.0-E))+E*E/(511*(511.0-E));
 			A[i] += tmp1;
 		}
@@ -219,9 +166,9 @@ double * profilo(int N, fattori fit)
 	//for (i=0; i<min(edge2(fit,N),N); i++)
 	//	A[i] = A[i]+fit.k*(2-2*E/(t*(1275.0-E))+E*E/(sqr(t)*(1275.0-E)*(1275.0-E))+sqr(E)/(1275*(1275.0-E)))/(t*1275.0);	
 
-	for (int i=0; i<min((int)fit.e2,N); i++)
+	for (int i=0; i<min(edge2(fit,N),N); i++)
 		{
-			double E = fitE + fitx*i;
+			double E = fit.E + fit.x*i;
 			double tmp2 = 2-2*E/(1275.0-E)+E*E/((1275.0-E)*(1275.0-E))+E*E/(1275.0*(1275.0-E));
 			A[i] += fit.k*tmp2;
 		}
@@ -242,27 +189,27 @@ double * profilo(int N, fattori fit)
 /*Ogni elemento A[i] genera una gaussiana di centro i, area A[i], e sigma data da parametro.
   B[i] è dato dalla somma di tutti i valori che assumono le gaussiane in i; per motivi pratici
   tronchiamo le gaussiane a 5*fit.sigma*/
-//void convoluzione_alt(int N, double A[], double B[], fattori * fitp)
-//{
-	//fattori fit = (*fitp);
-	//int i,j;
-	//for (i=0; i<N; i++)
-		//B[i] = 0;
-	//for (i=1; i<edge2(fit,N); i++){
-		//if ( (i>=5*fit.sigma) and ((i+5*fit.sigma)<N) ) 
-			//for (j=(i-5*fit.sigma); j<(i+5*fit.sigma); j++)
-				//B[j] = B[j] + A[i]/(sqrt(2*M_PI)*fit.sigma)*exp(-1.0*(j-i)*(j-i)/(fit.sigma*fit.sigma*2));
-		//else{
-			//if ( (i<5*fit.sigma) and ((i+5*fit.sigma)<N) ) 
-				//for (j=0; j<(i+5*fit.sigma); j++)
-					//B[j] = B[j] + A[i]/(sqrt(2*M_PI)*fit.sigma)*exp(-1.0*(j-i)*(j-i)/(fit.sigma*fit.sigma*2));
-			//else{
-				//for (j=(i-5*fit.sigma); j<N; j++)
-					//B[j] = B[j] + A[i]/(sqrt(2*M_PI)*fit.sigma)*exp(-1.0*(j-i)*(j-i)/(fit.sigma*fit.sigma*2));}
-		//}
-	//}
+void convoluzione_alt(int N, double A[], double B[], fattori * fitp)
+{
+	fattori fit = (*fitp);
+	int i,j;
+	for (i=0; i<N; i++)
+		B[i] = 0;
+	for (i=1; i<edge2(fit,N); i++){
+		if ( (i>=5*fit.sigma) and ((i+5*fit.sigma)<N) ) 
+			for (j=(i-5*fit.sigma); j<(i+5*fit.sigma); j++)
+				B[j] = B[j] + A[i]/(sqrt(2*M_PI)*fit.sigma)*exp(-1.0*(j-i)*(j-i)/(fit.sigma*fit.sigma*2));
+		else{
+			if ( (i<5*fit.sigma) and ((i+5*fit.sigma)<N) ) 
+				for (j=0; j<(i+5*fit.sigma); j++)
+					B[j] = B[j] + A[i]/(sqrt(2*M_PI)*fit.sigma)*exp(-1.0*(j-i)*(j-i)/(fit.sigma*fit.sigma*2));
+			else{
+				for (j=(i-5*fit.sigma); j<N; j++)
+					B[j] = B[j] + A[i]/(sqrt(2*M_PI)*fit.sigma)*exp(-1.0*(j-i)*(j-i)/(fit.sigma*fit.sigma*2));}
+		}
+	}
 
-//}	
+}	
 
 double * convoluzione(int N, double * A, fattori * fitp)
 {
@@ -270,7 +217,7 @@ double * convoluzione(int N, double * A, fattori * fitp)
 	#ifdef LORENTZIAN
 		int maxin = (int)(10*(fitp->sigma))+1;
 	#else
-		int maxin = (int)(3*(fitp->sigma))+1;
+		int maxin = (int)(5*(fitp->sigma))+1;
 	#endif
 	
 	//	cout << "MAXIN = " << maxin << endl;
@@ -281,8 +228,7 @@ double * convoluzione(int N, double * A, fattori * fitp)
 		#ifdef LORENTZIAN
 			gauss[i] = ((fitp->sigma)/M_PI )/( sqr(i) + sqr(fitp->sigma)  );
 		#else
-			gauss[i] =	0.8*		 1/(sqrt(2*M_PI)*(fitp->sigma)) * exp(-1.0*(i)*(i)/((fitp->sigma)*(fitp->sigma)*2));
-			gauss[i] += 0.2*		((fitp->sigma)/M_PI )/( sqr(i) + sqr(fitp->sigma)  );
+			gauss[i] = 1/(sqrt(2*M_PI)*(fitp->sigma)) * exp(-1.0*(i)*(i)/((fitp->sigma)*(fitp->sigma)*2));
 	//		cout << "gauss " << i << "\t" << gauss[i] << endl;
 		#endif
 	};
@@ -292,13 +238,11 @@ double * convoluzione(int N, double * A, fattori * fitp)
 	for(int i = 0; i < N; i++)
 	{
 		B[i] = 0;
-		float stdev = (fitp->sigma)*i;
-		maxin = (int)(GAUSS_STDEVS*stdev)+1;
 		for(int j = - min(i,maxin-1); j < min(N-i,maxin); j++)
 		{
 			if((i+j<0) or (i+j >= N) or (abs(j) >= maxin))
 			{	cerr << "comptonfit ERRORE: fuori range in convoluzione\n"; exit(1);}
-			B[i] += A[i+j] * gaussianator.gaussiamelo(j,stdev);
+			B[i] += A[i+j] * gauss[abs(j)];
 		}
 	};
 
@@ -325,9 +269,8 @@ void minimize_chi2(int N, double Dati[], fattori fit1, fattori fit2, fattori & b
 	int bcounter = 0;
 	int bMAX = pow(passo+1,5);
 	
-
-	for (bo.e1=fit1.e1; bo.e1<=fit2.e1; bo.e1= bo.e1 + delta.e1)
-		for (bo.e2=fit1.e2; bo.e2<=fit2.e2; bo.e2=bo.e2 +delta.e2)
+	for (bo.E=fit1.E; bo.E<=fit2.E; bo.E= bo.E + delta.E)
+		for (bo.x=fit1.x; bo.x<=fit2.x; bo.x=bo.x +delta.x)
 			for (bo.y=fit1.y; bo.y<=fit2.y; bo.y=bo.y + delta.y)
 				for (bo.k=fit1.k; bo.k<=fit2.k; bo.k=bo.k + delta.k)
 					for (bo.sigma=fit1.sigma; bo.sigma<=fit2.sigma; bo.sigma=bo.sigma + delta.sigma){
@@ -348,8 +291,8 @@ void minimize_chi2(int N, double Dati[], fattori fit1, fattori fit2, fattori & b
 						
 						
 						bo.S = 0;
-						for (int i=100; i<min(N,800); i++)
-							bo.S = bo.S + sqr(B[i]-Dati[i]);///max( Dati[i] , 1.0); 
+						for (int i=150; i<N; i++)
+							bo.S = bo.S + sqr(log(B[i]+1)-log(Dati[i]+1));///max( Dati[i] , 1.0); 
 							//S e' il chi^2. Somma delle differenze al quadrato diviso la varianza al quadrato. La sigma e' sqrt(N) e N=Dati[i]
 						//cout << bo.S << "\t" << fattorirep(bo) << endl;
 						//cout << bo.S << endl;
@@ -357,8 +300,8 @@ void minimize_chi2(int N, double Dati[], fattori fit1, fattori fit2, fattori & b
 						if (bo.S<best.S){
 							
 							
-							best.e1 = bo.e1;
-							best.e2 = bo.e2;
+							best.E = bo.E;
+							best.x = bo.x;
 							best.y = bo.y;
 							best.k = bo.k;
 							best.sigma = bo.sigma;
@@ -448,10 +391,10 @@ void salva_fattori(fattori tos, string filename, string comment)
 	}
 		
 		f << "#" << comment;
-		f << tos.e1 << endl;
-		f << tos.e2 << endl;
-		f << tos.k << endl;
+		f << tos.E << endl;
+		f << tos.x << endl;
 		f << tos.y << endl;
+		f << tos.k << endl;
 		f << tos.sigma << endl;
 		f << tos.S << endl;
 		
@@ -502,47 +445,38 @@ void analisi(string fname)
 	
 	//fattori di bound a caso, CAMBIARE!!!
 	fattori fit1,fit2;
-		//fit1.E=0;
+		fit1.E=0;
 		//fit1.x = 0.5;
 		//fit1.y = 10000;
-		fit1.k = 0.002;
-		fit1.sigma = 0.12;
+		fit1.k = 0.001;
+		fit1.sigma = 50;
 		fit1.S = 1000;
-		//fit2.E=50;
+		fit2.E=50;
 		//fit2.x = 5;
 		//fit2.y = 100000;
-		fit2.k = 0.004;
-		fit2.sigma = .18;
+		fit2.k = 0.01;
+		fit2.sigma = 100;
 		fit2.S = 1000;
 	
 	//fit1.y = maxval*250.0 * 0.3;
 	//fit2.y = maxval*250.0 * 2.0;
-	fit1.y = maxval* 0.5 * 0.8;
-	fit2.y = maxval* 0.5 * 1.5;
-	//fit1.x = 200.0/maxpos * 1.6;
-	//fit2.x = 200.0/maxpos * 1.9;
-	
-	
-	fit1.e1 = 220;
-	fit2.e1 = 240;
-	fit1.e2 = 675;
-	fit2.e2 = 690;
+	fit1.y = maxval* 0.5 * 0.3;
+	fit2.y = maxval* 0.5 * 2.0;
+	fit1.x = 200.0/maxpos * 1.6;
+	fit2.x = 200.0/maxpos * 1.9;
 	
 	#ifdef LORENTZIAN
 	
-	//fit2.E = 40;
-	//fit1.k = 0.02;
-	//fit1.sigma = 20;
-	//fit1.x = 200.0/maxpos * 1.1;
-	//fit2.x = 200.0/maxpos * 1.4;
+	fit2.E = 40;
+	fit1.k = 0.02;
+	fit1.sigma = 20;
+	fit1.x = 200.0/maxpos * 1.1;
+	fit2.x = 200.0/maxpos * 1.4;
 	
 	#endif
 	
 	
-	fit( N, Dati, fit1, fit2, &bestfat, 
-			5,	//STEP 
-			3	//ITERAZIONI
-			);
+	fit( N, Dati, fit1, fit2, &bestfat, 4, 1);
 	
 	string outfname =  fname + ".cfit";
 	
@@ -575,13 +509,11 @@ int test_random()
 	double * A;
 	double * B;
 	fattori fit,best,fit1,fit2;
-	//fit.E=-50;
-	//fit.x = 1.68;
-	fit.e1 = 225;
-	fit.e2 = 675;
-	fit.y = 19000.2;// 8700000;// 200000000;
-	fit.k = 0.005;
-	fit.sigma = 0.1;
+	fit.E=-50;
+	fit.x = 1.68;
+	fit.y = 18369.6;// 8700000;// 200000000;
+	fit.k = 0.0025;
+	fit.sigma = 30;
 	fit.S = 1000;
 	A = profilo(1000,fit);
 	
@@ -599,20 +531,20 @@ int test_random()
 
 
 
-		//fit1.E=50;
-		//fit1.x = 0.5;
+		fit1.E=50;
+		fit1.x = 0.5;
 		fit1.y = 100000000;
 		fit1.k = 0.0005;
 		fit1.sigma = 5;
 		fit1.S = 1000;
-		//fit2.E=300;
-		//fit2.x = 1.5;
+		fit2.E=300;
+		fit2.x = 1.5;
 		fit2.y = 400000000;
 		fit2.k = 0.01;
 		fit2.sigma = 50;
 		fit2.S = 1000;
 		minimize_chi2(N,B,fit1,fit2,best,3.0);
-		cout << fattorirep(best) << endl;
+		cout << best.S << "     " << best.E << "    " << best.x << "     " << best.y << "    " << best.k <<"      " << best.sigma << endl;
 		A = profilo(1000,best);
 		B = convoluzione(1000,A,&best);
 
@@ -627,8 +559,8 @@ return 0;
 int test_convoluzione()
 {
 	fattori fit;
-	//fit.E=100;
-	//fit.x = 1;
+	fit.E=100;
+	fit.x = 1;
 	fit.y = 200000000;
 	fit.k = 0.001;
 	fit.sigma = 25;
