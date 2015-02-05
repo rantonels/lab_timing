@@ -267,33 +267,33 @@ double * profilo(int N, fattori fit)
 double * convoluzione(int N, double * A, fattori * fitp)
 {
 	double * B = new double[N];
-	#ifdef LORENTZIAN
-		int maxin = (int)(10*(fitp->sigma))+1;
-	#else
-		int maxin = (int)(3*(fitp->sigma))+1;
-	#endif
-	
-	//	cout << "MAXIN = " << maxin << endl;
-
-	double * gauss = new double [maxin];
-	for(int i=0; i<maxin; i++)
-	{
-		#ifdef LORENTZIAN
-			gauss[i] = ((fitp->sigma)/M_PI )/( sqr(i) + sqr(fitp->sigma)  );
-		#else
-			gauss[i] =	0.8*		 1/(sqrt(2*M_PI)*(fitp->sigma)) * exp(-1.0*(i)*(i)/((fitp->sigma)*(fitp->sigma)*2));
-			gauss[i] += 0.2*		((fitp->sigma)/M_PI )/( sqr(i) + sqr(fitp->sigma)  );
-	//		cout << "gauss " << i << "\t" << gauss[i] << endl;
-		#endif
-	};
-
+//	#ifdef LORENTZIAN
+//		int maxin = (int)(10*(fitp->sigma))+1;
+//	#else
+//		int maxin = (int)(3*(fitp->sigma))+1;
+//	#endif
+//	
+//	//	cout << "MAXIN = " << maxin << endl;
+//
+//	double * gauss = new double [maxin];
+//	for(int i=0; i<maxin; i++)
+//	{
+//		#ifdef LORENTZIAN
+//			gauss[i] = ((fitp->sigma)/M_PI )/( sqr(i) + sqr(fitp->sigma)  );
+//		#else
+//			gauss[i] =	0.8*		 1/(sqrt(2*M_PI)*(fitp->sigma)) * exp(-1.0*(i)*(i)/((fitp->sigma)*(fitp->sigma)*2));
+//			gauss[i] += 0.2*		((fitp->sigma)/M_PI )/( sqr(i) + sqr(fitp->sigma)  );
+//	//		cout << "gauss " << i << "\t" << gauss[i] << endl;
+//		#endif
+//	};
+//
 
 
 	for(int i = 0; i < N; i++)
 	{
 		B[i] = 0;
 		float stdev = (fitp->sigma)*i;
-		maxin = (int)(GAUSS_STDEVS*stdev)+1;
+		int maxin = (int)(GAUSS_STDEVS*stdev)+1;
 		for(int j = - min(i,maxin-1); j < min(N-i,maxin); j++)
 		{
 			if((i+j<0) or (i+j >= N) or (abs(j) >= maxin))
