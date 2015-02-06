@@ -17,7 +17,7 @@ def istogrammi():
 	print
 	count = 0
 	for file in os.listdir("data"):
-	    if (file.endswith(".root")) and (file != "1830HV40CG10min.root"):
+	    if (file.endswith(".root")) and (file != "1830HV40CG10min.root"):   #e' importante escludere questo file corrotto
 			print "*",file
 			calls = ["bin/root2csv", "data/"+file, "tmp/"+os.path.splitext(file)[0]] 
 			print "$"," ".join(calls)
@@ -27,13 +27,25 @@ def istogrammi():
 				sys.exit()
 			count +=1
 	
-	print "calcolati",count," x4 istogrammi."
+	print "calcolati",count,"x4 istogrammi."
 			
 	open("tmp/donehisto", 'a').close()
 
 CLIST = [#lista dei file del quale fare i profili compton
 	"tmp/giovedi11_1_h2",
-	"tmp/giovedi11_1_h3"
+	"tmp/giovedi11_1_h3",
+
+        "1430HV100GC10min_h3",
+        "1530HV100GC10min_h3",
+        "1630HV100GC10min_h3",
+        "1730HV100GC25min_h3",
+        "1930HV40GC10min_h3",
+        "2R1420HV100GC10min_h3",
+        "2R1520HV100GC10min_h3",
+        "2R1620HV100GC10min_h3",
+        "2R1720HV100GC25min_h3",
+        "2R1830HV40GC10min_h3",
+        "2R1930HV40CG10min_h3"
 ]
 
 def comptonfits():
