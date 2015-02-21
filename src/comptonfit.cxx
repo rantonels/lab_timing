@@ -311,7 +311,7 @@ void minimize_chi2(int N, double Dati[], fattori fit1, fattori fit2, fattori & b
 {
 	double * A;
 	double * B;
-	fattori bo, delta;
+	fattori bo, delta, limit;
 	best.S = HUGE_VAL; //Nan??
 	//delta.E = (fit2.E-fit1.E)/passo;
 	//delta.x = (fit2.x-fit1.x)/passo;
@@ -320,61 +320,63 @@ void minimize_chi2(int N, double Dati[], fattori fit1, fattori fit2, fattori & b
 
 	delta = (fit2-fit1)*(1/passo);
 
+	limit = fit2 + delta*0.5; // questo permette di evitare confronti float pelo pelo
+	
+
 	//delta.sigma = (fit2.sigma-fit1.sigma)/passo;
 	
 	int bcounter = 0;
 	int bMAX = pow(passo+1,5);
 	
 
-	for (bo.e1=fit1.e1; bo.e1<=fit2.e1; bo.e1= bo.e1 + delta.e1)
-		for (bo.e2=fit1.e2; bo.e2<=fit2.e2; bo.e2=bo.e2 +delta.e2)
-			for (bo.y=fit1.y; bo.y<=fit2.y; bo.y=bo.y + delta.y)
-				for (bo.k=fit1.k; bo.k<=fit2.k; bo.k=bo.k + delta.k)
-					for (bo.sigma=fit1.sigma; bo.sigma<=fit2.sigma; bo.sigma=bo.sigma + delta.sigma){
-						
-						
-						A = profilo(N,bo);
-						
-							
-						
-						B = convoluzione(N,A,&bo);
-						
-						
-						delete [] A;
-						
-						//for(int i=0; i<N; i++)
-							//cout << i << "\t" << B[i] << endl;
-						//exit(1);
-						
-						
-						bo.S = 0;
-						for (int i=100; i<min(N,800); i++)
-							bo.S = bo.S + sqr(B[i]-Dati[i]);///max( Dati[i] , 1.0); 
-							//S e' il chi^2. Somma delle differenze al quadrato diviso la varianza al quadrato. La sigma e' sqrt(N) e N=Dati[i]
-						//cout << bo.S << "\t" << fattorirep(bo) << endl;
-						//cout << bo.S << endl;
-						//cout << bo.S << endl;
-						if (bo.S<best.S){
-							
-							
-							best.e1 = bo.e1;
-							best.e2 = bo.e2;
-							best.y = bo.y;
-							best.k = bo.k;
-							best.sigma = bo.sigma;
-							best.S = bo.S;
-						}
-						
-						if (bcounter%50 == 0)
-						{
-							cout << "\rchi^2 = " << best.S << " " << (100*bcounter)/bMAX << "%       ";
-							cout.flush();
-						}
-						
-						delete [] B;
-						
-						bcounter ++;
-					}
+	
+	for (bo.e1=fit1.e1; bo.e1<=limit.e1; bo.e1= bo.e1 + delta.e1)
+	for (bo.e2=fit1.e2; bo.e2<=limit.e2; bo.e2=bo.e2 +delta.e2)
+	for (bo.k=fit1.k; bo.k<=limit.k; bo.k=bo.k + delta.k)
+	for (bo.sigma=fit1.sigma; bo.sigma<=limit.sigma; bo.sigma=bo.sigma + delta.sigma)
+	{
+
+		bo.y = 1.;
+		A = profilo(N,bo);
+		B = convoluzione(N,A,&bo);
+		delete [] A;
+
+		for (bo.y=fit1.y; bo.y<=limit.y; bo.y=bo.y + delta.y)
+		{	
+			//da qui in poi il profilo è bo.y*B;	
+			
+			
+			bo.S = 0;
+			for (int i=100; i<min(N,800); i++)
+				bo.S = bo.S + sqr(bo.y*B[i]-Dati[i]);///max( Dati[i] , 1.0); 
+				//S e' il chi^2. Somma delle differenze al quadrato diviso la varianza al quadrato. La sigma e' sqrt(N) e N=Dati[i]
+		
+
+			if (bo.S<best.S){							
+				
+				best.e1 = bo.e1;
+				best.e2 = bo.e2;
+				best.y = bo.y;
+				best.k = bo.k;
+				best.sigma = bo.sigma;
+				best.S = bo.S;
+			}
+			
+			if (bcounter%50 == 0)
+			{
+				cout << "\rchi^2 = " << best.S << " " << (100*bcounter)/bMAX << "%       ";
+				cout.flush();
+			}
+			
+			
+			bcounter ++;
+		}
+
+
+		delete [] B;
+	
+	}
+
 	cout << endl;
 	if (best.S == HUGE_VAL)
 	{
@@ -458,9 +460,10 @@ void salva_fattori(fattori tos, string filename, string comment)
 		f.close();
 }
 
-void analisi(string fname)
+void analisi(string fname, float gain = 1)
 {
 	cout << "Fit compton di " << fname << "..." << endl;
+	cout << "Gain: " << gain << endl;
 	cout << "* caricamento file...";
 	cout.flush();
 	double * Dati;
@@ -523,10 +526,10 @@ void analisi(string fname)
 	//fit2.x = 200.0/maxpos * 1.9;
 	
 	
-	fit1.e1 = 220;
-	fit2.e1 = 240;
-	fit1.e2 = 675;
-	fit2.e2 = 690;
+	fit1.e1 = 220 * gain;
+	fit2.e1 = 250 * gain;
+	fit1.e2 = 675 * gain;
+	fit2.e2 = 700 * gain;
 	
 	#ifdef LORENTZIAN
 	
@@ -678,7 +681,10 @@ int main(int argcount, char* argv[])
 			}
 			else
 			{
-				analisi(argv[2]);
+				if (argcount == 3)
+					analisi(argv[2]);
+				else
+					analisi(argv[2],atof(argv[3]));
 				exit(0);
 			}
 		}
