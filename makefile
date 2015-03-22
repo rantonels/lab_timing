@@ -5,7 +5,7 @@ GCC = g++ $(FLAGS)
 
 .PHONY: directories
 
-all: bin/comptonfit bin/root2csv
+all: bin/comptonfit bin/root2csv bin/timegaussians
 
 #datafile
 
@@ -28,6 +28,11 @@ R_GLIBS  = $(shell root-config --glibs)
 
 bin/root2csv: src/root2csv.cxx
 	$(GCC) $(R_CFLAGS) src/root2csv.cxx -o bin/root2csv $(R_LIBS)
+
+#timegaussians
+
+bin/timegaussians: src/timegaussians.cxx
+	$(GCC) $(R_CFLAGS) src/timegaussians.cxx -o bin/timegaussians $(R_LIBS)
 
 #cleanup
 

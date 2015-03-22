@@ -4,6 +4,14 @@ import glob
 import os
 import sys
 import subprocess
+import re
+import pickle
+
+HVpattern = re.compile(r'(2R)?(\d{4})HV(\d+)GC\d+min\.root')
+
+CLIST = []
+
+PLIST = []
 
 def precheck():
 #	os.chdir(os.path.realpath(__file__))
@@ -11,11 +19,16 @@ def precheck():
 		print >> sys.stderr, "analisi.py ERRORE: cartella dati non trovata"
 		sys.exit()
 
+class HV():
+    pass
+
 
 def istogrammi():
-	print "Calcolo istogrammi."
+        global PLIST,CLIST
+        print "Calcolo istogrammi."
 	print
 	count = 0
+        #CLIST = []
 	for file in os.listdir("data"):
 	    if (file.endswith(".root")) and (file != "1830HV40CG10min.root"):   #e' importante escludere questo file corrotto
 			print "*",file
@@ -26,50 +39,117 @@ def istogrammi():
 				print >> sys.stderr, "analisi.py ERRORE: root2csv e' stato terminato con errore."
 				sys.exit()
 			count +=1
+
+
+                        mo = HVpattern.match(file)
+                        if mo:
+                            nhv = HV()
+                            nhv.fname = file
+                            nhv.voltaggio   = int(mo.group(2))
+                            nhv.gain        = int(mo.group(3))
+                            if mo.group(1) == '2R':
+                                nhv.ch = 3
+                            else:
+                                nhv.ch = 2
+                            CLIST.append(nhv)
+                            print "Trovato file HV con fname %s, voltaggio %d, gain %d, canale %d"%(nhv.fname,nhv.voltaggio,nhv.gain,nhv.ch)
+        
+        print "trovati %d HV"%len(CLIST)
+
 	
 	print "calcolati",count,"x4 istogrammi."
 			
 	open("tmp/donehisto", 'a').close()
 
-CLIST = [#lista dei file del quale fare i profili compton
-	"tmp/giovedi11_1_h2",
-	"tmp/giovedi11_1_h3",
 
-        "1430HV100GC10min_h3",
-        "1530HV100GC10min_h3",
-        "1630HV100GC10min_h3",
-        "1730HV100GC25min_h3",
-        "1930HV40GC10min_h3",
-        "2R1420HV100GC10min_h3",
-        "2R1520HV100GC10min_h3",
-        "2R1620HV100GC10min_h3",
-        "2R1720HV100GC25min_h3",
-        "2R1830HV40GC10min_h3",
-        "2R1930HV40CG10min_h3"
-]
+#for file in os.listdir("data"):
+
+
+#CLIST = [#lista dei file del quale fare i profili compton
+#	"tmp/giovedi11_1_h2",
+#	"tmp/giovedi11_1_h3",
+#        "tmp/1430HV100GC10min_h3",
+#        "tmp/1530HV100GC10min_h3",
+#        "tmp/1630HV100GC10min_h3",
+#        "tmp/1730HV100GC25min_h3",
+#        "tmp/1930HV40GC10min_h3",
+#        "tmp/2R1420HV100GC10min_h3",
+#        "tmp/2R1520HV100GC10min_h3",
+#        "tmp/2R1620HV100GC10min_h3",
+#        "tmp/2R1720HV100GC25min_h3",
+#        "tmp/2R1830HV40GC10min_h3",
+#        "tmp/2R1930HV40CG10min_h3"
+#]
 
 def comptonfits():
+        global PLIST,CLIST
 	print "fit profili compton (molto lungo)"
 	print
+
 	fcount = 1
-	for file in CLIST:
-		print "* FIT",fcount,"su",len(CLIST),"-",file
+	for hvfile in CLIST:
+                file = "tmp/" + os.path.splitext(hvfile.fname)[0] + "_h" + str(hvfile.ch)
+                print file
+                print "* FIT",fcount,"su",len(CLIST),"-",file
 		
 		if not os.path.exists(file):
 			print >> sys.stderr, "analisi.py ERRORE: il file "+file+"necessario per il fit compton non esiste"
 			sys.exit()
 		
-		call = "bin/comptonfit analisi "+file
+                gainstr = str( float(hvfile.gain)/100.0        )
+
+                call = "bin/comptonfit analisi "+file # + " " +gainstr
 		print call
 		ret = subprocess.call(call,shell=True)
 		if (ret>0):
 			print >> sys.stderr, "analisi.py ERRORE: comptonfit e' stato terminato con errore"
 			sys.exit()
-		fcount +=1
-	
+		
+                PLIST.append( (file, file + ".ccurve") )
+                
+                fcount +=1
 
+
+
+
+	
+	open("tmp/donefits", 'a').close()
+
+def generate_gnuplot_script():
+    global PLIST,CLIST
+    print "generazione script gnuplot"
+    fl = open('tmp/fitplots','w')
+
+    fl.write('''set term png\n\n''')
+
+    fl.write('''set xrange [0:1000]\n''')
+
+    for f,fc in PLIST:
+        fl.write('''set output "%s"\n\n'''%(f+".png"))
+        strinka = '''plot "%s" u 0:1 with lines, "%s" u 1:2 with lines\n''' % (f,fc)
+        fl.write(strinka)
+
+    fl.close()
+
+
+def sigmas():
+    global PLIST,CLIST
+    print "calcolo delle sigma"
+
+    for h in CLIST:
+        fl = open("tmp/"+os.path.splitext(h.fname)[0]+"_h"+str(h.ch) + ".cfit")
+        com,e1,e2,k,y,sigma,S = fl.readlines()
+        fl.close()
+        if com[0] != '#':
+            print "ERROR WRONG HEADER"
+            sys.exit(1)
+
+        h.sigma_E = float(sigma)
+
+        print h.voltaggio,h.ch,h.sigma_E
 
 def analisi():
+        global PLIST,CLIST
 	print
 	print "inizio analisi completa."
 	print
@@ -82,11 +162,21 @@ def analisi():
 	
 	if not os.path.exists("tmp/donefits"):
 		comptonfits()
+                pickle.dump(PLIST,open("tmp/PLIST",'w'))
+                pickle.dump(CLIST,open("tmp/CLIST",'w'))
 	else:
 		print "fit gia' fatti. (Pulire tmp/ per ripetere il calcolo dei fit)"
-		
+	
+
+
 	print
-		
+	
+        PLIST = pickle.load(open("tmp/PLIST",'r'))
+        CLIST = pickle.load(open("tmp/CLIST",'r'))
+        generate_gnuplot_script()
+
+        sigmas()
+
 	print "FINE ANALISI, senza errori :D"
 	
 

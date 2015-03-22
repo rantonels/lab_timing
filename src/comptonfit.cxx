@@ -13,6 +13,8 @@ using namespace std;
 const int comp_edge1 = 340;
 const int comp_edge2 = 1062;
 
+float multiplier;
+
 #define LORENTZIAN 1 //commentare per tornare alla gaussiana, decommentare per la lorentziana
 
 double sqr(double r)
@@ -313,21 +315,14 @@ void minimize_chi2(int N, double Dati[], fattori fit1, fattori fit2, fattori & b
 	double * B;
 	fattori bo, delta, limit;
 	best.S = HUGE_VAL; //Nan??
-	//delta.E = (fit2.E-fit1.E)/passo;
-	//delta.x = (fit2.x-fit1.x)/passo;
-	//delta.y = (fit2.y-fit1.y)/passo;
-	//delta.k = (fit2.k-fit1.k)/passo;
-
+	
 	delta = (fit2-fit1)*(1/passo);
 
-	limit = fit2 + delta*0.5; // questo permette di evitare confronti float pelo pelo
+	limit = fit2 + delta*0.1; // questo permette di evitare confronti float pelo pelo
 	
-
-	//delta.sigma = (fit2.sigma-fit1.sigma)/passo;
 	
 	int bcounter = 0;
-	int bMAX = pow(passo+1,5);
-	
+	int bMAX = pow(passo+1,4) * (2*passo + 1);
 
 	
 	for (bo.e1=fit1.e1; bo.e1<=limit.e1; bo.e1= bo.e1 + delta.e1)
@@ -341,13 +336,13 @@ void minimize_chi2(int N, double Dati[], fattori fit1, fattori fit2, fattori & b
 		B = convoluzione(N,A,&bo);
 		delete [] A;
 
-		for (bo.y=fit1.y; bo.y<=limit.y; bo.y=bo.y + delta.y)
+		for (bo.y=fit1.y; bo.y<=limit.y; bo.y=bo.y + 0.5*delta.y)
 		{	
 			//da qui in poi il profilo è bo.y*B;	
 			
 			
 			bo.S = 0;
-			for (int i=100; i<min(N,800); i++)
+			for (int i=int(100*multiplier); i<min(N,800); i++)
 				bo.S = bo.S + sqr(bo.y*B[i]-Dati[i]);///max( Dati[i] , 1.0); 
 				//S e' il chi^2. Somma delle differenze al quadrato diviso la varianza al quadrato. La sigma e' sqrt(N) e N=Dati[i]
 		
@@ -449,7 +444,7 @@ void salva_fattori(fattori tos, string filename, string comment)
 			exit(1);
 	}
 		
-		f << "#" << comment;
+		f << "#" << comment << endl;
 		f << tos.e1 << endl;
 		f << tos.e2 << endl;
 		f << tos.k << endl;
@@ -482,7 +477,7 @@ void analisi(string fname, float gain = 1)
 	double maxval = -HUGE_VAL;
 	int maxpos = -1;
 	
-	for (int i=0; i<N; i++)
+	for (int i=50; i<N; i++)
 	{
 		if(Dati[i] > maxval)
 		{
@@ -500,36 +495,35 @@ void analisi(string fname, float gain = 1)
 	
 	cout << "Massimo dei dati: " << maxval << " al canale " << maxpos << endl;
 	
-	
+	multiplier = maxpos/207.0;
+
+	cout << "Moltiplicatore: " << multiplier << endl;
+
 	fattori bestfat;
 	
-	//fattori di bound a caso, CAMBIARE!!!
 	fattori fit1,fit2;
-		//fit1.E=0;
-		//fit1.x = 0.5;
-		//fit1.y = 10000;
-		fit1.k = 0.002;
-		fit1.sigma = 0.12;
-		fit1.S = 1000;
-		//fit2.E=50;
-		//fit2.x = 5;
-		//fit2.y = 100000;
-		fit2.k = 0.004;
-		fit2.sigma = .18;
-		fit2.S = 1000;
 	
-	//fit1.y = maxval*250.0 * 0.3;
-	//fit2.y = maxval*250.0 * 2.0;
-	fit1.y = maxval* 0.5 * 0.8;
-	fit2.y = maxval* 0.5 * 1.5;
-	//fit1.x = 200.0/maxpos * 1.6;
-	//fit2.x = 200.0/maxpos * 1.9;
+	//INSERIRE RANGE MANUALI QUI
+
+	//rapporto altezza picchi
+	fit1.k = 0.003;
+	fit2.k = 0.004;
+
+	//coefficiente di sigma = coefficiente * x
+	fit1.sigma = 0.12 * multiplier;
+	fit2.sigma = .18 * multiplier;
+
+	//scala y
+	fit1.y = maxval* 0.5 * 0.8 * gain;
+	fit2.y = maxval* 0.5 * 2.0 * gain;
 	
-	
-	fit1.e1 = 220 * gain;
-	fit2.e1 = 250 * gain;
-	fit1.e2 = 675 * gain;
-	fit2.e2 = 700 * gain;
+	//posizione canale primo picco
+	fit1.e1 = 225 * multiplier;
+	fit2.e1 = 260 * multiplier;
+
+	//posizione canale secondo picco
+	fit1.e2 = 680 * multiplier;
+	fit2.e2 = 730 * multiplier;
 	
 	#ifdef LORENTZIAN
 	
