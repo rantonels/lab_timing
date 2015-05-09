@@ -9,15 +9,16 @@
 
 #include <string>
 
+#include <fstream>
 
-const int numBins = 10;
-const int binSize = 50;
 
 int main(int argc, char** argv){
 	
 	int numBins = atoi(argv[2]);
 	int binSize = atoi(argv[3]);
 
+	std::ofstream outf;
+	outf.open(argv[4],std::ofstream::out);
 
 	TH1F *h1; 
 	
@@ -60,10 +61,17 @@ int main(int argc, char** argv){
 	TF1 * gfun = h1->GetFunction("gaus");
 
 	Double_t sigma = gfun->GetParameter(2);
+	Double_t sigma_err = gfun->GetParError(2);
 
 	printf("sigma = %f\n",sigma);
+	printf("sigma_err = %f\n",sigma);
+
+	outf << sigma << "," << sigma_err << std::endl;
 
 	delete h1;
 
-	}
+	};
+
+
+	outf.close();
 }

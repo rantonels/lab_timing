@@ -564,6 +564,14 @@ void analisi(string fname, float gain = 1)
 	
 	delete [] outprofraw;
 
+	float var_perc = 10;
+
+	cout << "salvo profilo con sigma variata (+" << int(var_perc) << "%) per stima dell'errore..." << endl;
+
+	bestfat.sigma += var_perc/100. * bestfat.sigma;
+	double * varprof = profilo(N,bestfat);
+	varprof = convoluzione(N,varprof,&bestfat);
+	salva_array(N,varprof,fname + ".cvar","curva compton con sigma variata per il file "+fname);
 }
 
 int test_random()

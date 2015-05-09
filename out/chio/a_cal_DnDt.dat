@@ -1,0 +1,28 @@
+Ritardo	Centro				errore a posteriori
+14	546.707	291.079	8832.36	28.5058	0.21519
+17	662.198	275.467	8478.05	28.9131	0.21519
+18	701.2	274.532	8264.81	28.2819	0.21519
+22	887.169	254.319	7862.77	29.0446	0.21519
+30	1184.93	249.674	7597.12	28.5853	0.21519
+4	138.196	344.121	10578.4	28.8787	0.21519
+7	263.091	272.449	8304.51	28.635	0.21519
+8	302.406	277.473	8215.96	27.8167	0.21519
+
+
+F(x)  = a*x+b
+degrees of freedom    (FIT_NDF)                        : 6
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.21519
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.0463069
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 0.0246984        +/- 0.0002327    (0.9421%)
+b               = 0.533212         +/- 0.1561       (29.27%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      
+a               1.000 
+b              -0.873  1.000

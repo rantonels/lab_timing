@@ -13,6 +13,26 @@ CLIST = []
 
 PLIST = []
 
+
+##costanti per le sigma temporali
+t_binsize = 22
+t_binnum = 16
+TLIST = [
+            "anticipo1ns",
+            "ritardo0ns",
+            "ritardo1ns",
+            "ritardo2ns"
+        ]
+
+ritardi = [
+    5.4,
+    6.8,
+    8.2,
+    9.7
+           ]
+
+
+
 def precheck():
 #	os.chdir(os.path.realpath(__file__))
 	if not os.path.isdir("data"):
@@ -134,7 +154,7 @@ def generate_gnuplot_script():
 
 def sigmas():
     global PLIST,CLIST
-    print "calcolo delle sigma"
+    print "calcolo delle sigma di risoluzione"
 
     for h in CLIST:
         fl = open("tmp/"+os.path.splitext(h.fname)[0]+"_h"+str(h.ch) + ".cfit")
@@ -147,6 +167,47 @@ def sigmas():
         h.sigma_E = float(sigma)
 
         print h.voltaggio,h.ch,h.sigma_E
+
+def timesig():
+    global TLIST
+
+    print
+    print "calcolo delle sigma temporali"
+
+    for f in TLIST:
+        print f
+
+        call = "bin/timegaussians data/"+f+".root %d %d"%(t_binnum,t_binsize)+" "+"tmp/"+f+".time"
+        print call
+        ret = subprocess.call(call,shell=True)
+        if (ret>0):
+            print >> sys.stderr, "analisi.py ERRORE: timegaussians e' stato terminato con errore"
+            sys.exit()
+
+
+def bundletimesigs():
+    global TLIST
+    
+
+    print
+    print "raccoglimento sigma temporali..."
+    
+    j = open("tmp/timesigmas",'w')
+    
+    for i in range(len(TLIST)):
+        f = TLIST[i]
+        rit = ritardi[i]
+        counter = 0
+        for l in open("tmp/"+f+".time",'r').readlines():
+            v,verr = [float(x) for x in l.split(',')]
+
+            if counter != 0:
+                j.write("%f\t%d\t%f\t%f\n"%(rit,counter,v,verr))
+
+            counter += 1
+
+    j.close()
+
 
 def analisi():
         global PLIST,CLIST
@@ -176,6 +237,10 @@ def analisi():
         generate_gnuplot_script()
 
         sigmas()
+
+        timesig()
+
+        bundletimesigs()
 
 	print "FINE ANALISI, senza errori :D"
 	

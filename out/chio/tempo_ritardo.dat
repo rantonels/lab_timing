@@ -1,0 +1,127 @@
+cm	canale rit	sigma(inutile)	rit tempo ns	residui		err posteriori
+0	1185.23         11.7166		29.80649663			0.0135629
+10	1221.91 	11.7408		30.7124339	0.00836		0.0135629
+20	1241.16		12.0026		31.187878	-0.01019	0.0135629	
+50	1301.71		12.0019 	32.68336	0.003186	0.0135629
+
+
+10cm
+degrees of freedom    (FIT_NDF)                        : 1997
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 3.4444
+variance of residuals (reduced chisquare) = WSSR/ndf   : 11.8639
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+A               = 9043.01          +/- 27.22        (0.301%)
+s               = 11.7408          +/- 0.0409       (0.3483%)
+c               = 1221.91          +/- 0.04091      (0.003348%)
+
+
+correlation matrix of the fit parameters:
+
+               A      s      c      
+A               1.000 
+s               0.577  1.000 
+c               0.000 -0.052  1.000 
+
+
+
+
+
+
+20cm
+degrees of freedom    (FIT_NDF)                        : 1997
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 3.43986
+variance of residuals (reduced chisquare) = WSSR/ndf   : 11.8326
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+A               = 8936.17          +/- 27.49        (0.3076%)
+s               = 12.0026          +/- 0.04272      (0.3559%)
+c               = 1241.16          +/- 0.04273      (0.003443%)
+
+
+correlation matrix of the fit parameters:
+
+               A      s      c      
+A               1.000 
+s               0.577  1.000 
+c               0.000 -0.052  1.000 
+
+
+
+
+50cm
+degrees of freedom    (FIT_NDF)                        : 1997
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 3.63324
+variance of residuals (reduced chisquare) = WSSR/ndf   : 13.2005
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+A               = 9156.78          +/- 29.03        (0.3171%)
+s               = 12.0019          +/- 0.04404      (0.3669%)
+c               = 1301.71          +/- 0.04406      (0.003385%)
+
+
+correlation matrix of the fit parameters:
+
+               A      s      c      
+A               1.000 
+s               0.577  1.000 
+c               0.000 -0.054  1.000 
+
+
+
+
+
+0cm
+degrees of freedom    (FIT_NDF)                        : 1997
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 1.89401
+variance of residuals (reduced chisquare) = WSSR/ndf   : 3.58729
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+A               = 7582.48          +/- 14.95        (0.1972%)
+s               = 11.7166          +/- 0.02673      (0.2282%)
+c               = 1185.23          +/- 0.02674      (0.002256%)
+
+
+correlation matrix of the fit parameters:
+
+               A      s      c      
+A               1.000 
+s               0.577  1.000 
+c               0.000 -0.051  1.000 
+
+
+
+
+fit primi 10,20,50 cm
+degrees of freedom    (FIT_NDF)                        : 1
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.0135629
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.000183951
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 0.0494036        +/- 0.0004607    (0.9325%)
+b               = 30.2105          +/- 0.01457      (0.04822%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      
+a               1.000 
+b              -0.843  1.000 
+
+
+
+
+
+
+
+

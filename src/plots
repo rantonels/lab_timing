@@ -1,0 +1,27 @@
+
+set term pdf
+
+
+
+
+set xlabel "Canale"
+set ylabel "Eventi"
+
+
+set output "out/plot1730lin.pdf"
+
+set xrange [150:800]
+
+plot "tmp/1730HV100GC25min_h2" u 0:1 with steps title "Dati", "tmp/1730HV100GC25min_h2.ccurve" u 1:2 with lines title "Fit" lt rgb "black", "tmp/1730HV100GC25min_h2.craw" u 1:2 with lines title "Fit (senza convoluzione)", "tmp/1730HV100GC25min_h2.cvar" u 1:2 with lines title "Fit (variazione sigma +10%)"
+
+
+set output "out/plot1730log.pdf"
+
+
+
+set yrange [1:]
+set xrange [150:1000]
+
+set logscale y
+
+plot "tmp/1730HV100GC25min_h2" u 0:1 with steps title "Dati", "tmp/1730HV100GC25min_h2.ccurve" u 1:2 with lines title "Fit" lt rgb "black", "tmp/1730HV100GC25min_h2.craw" u 1:2 with lines title "Fit (senza convoluzione)"
