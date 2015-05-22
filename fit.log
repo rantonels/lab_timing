@@ -1,0 +1,48 @@
+
+
+*******************************************************************************
+Mon May 18 18:14:44 2015
+
+
+FIT:    data read from "tmp/timesigmasR1" u 1:2:3
+        format = x:z:s
+        x range restricted to [5.00000 : 10.0000]
+        #datapoints = 4
+function used for fitting: f(x)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 5.56895e+06       delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-05
+ lambda	  : 715.807
+
+initial set of free parameter values
+
+a               = 1
+b               = 1
+c               = 1
+
+After 7 iterations the fit converged.
+final sum of squares of residuals : 1.03219
+rel. change during last iteration : -1.65858e-13
+
+degrees of freedom    (FIT_NDF)                        : 1
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 1.01597
+variance of residuals (reduced chisquare) = WSSR/ndf   : 1.03219
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 0.110556         +/- 0.01293      (11.69%)
+b               = -1.8055          +/- 0.1963       (10.87%)
+c               = 19.3158          +/- 0.7196       (3.726%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      c      
+a               1.000 
+b              -0.996  1.000 
+c               0.983 -0.995  1.000 

@@ -1,8 +1,9 @@
 
 set term pdf
 
+unset key 
 
-
+# ISTOGRAMMI
 
 set xlabel "Canale"
 set ylabel "Eventi"
@@ -25,3 +26,36 @@ set xrange [150:1000]
 set logscale y
 
 plot "tmp/1730HV100GC25min_h2" u 0:1 with steps title "Dati", "tmp/1730HV100GC25min_h2.ccurve" u 1:2 with lines title "Fit" lt rgb "black", "tmp/1730HV100GC25min_h2.craw" u 1:2 with lines title "Fit (senza convoluzione)"
+
+
+
+# SIGME RITARDI
+
+reset
+unset key 
+set termoption enhanced
+set output "out/plottimesigmas.pdf"
+
+set format y "%.1f"
+set format x "%.1f"
+
+set xlabel "Ritardo (ns)"
+set ylabel "{/Symbol s}_t (canali)"
+plot "tmp/timesigmasR1" u 1:2:3 with yerrorbars
+
+# SIGME GIOVEDI
+
+reset
+set datafile separator ","
+unset key
+set termoption enhanced
+
+set xlabel "E/50 keV"
+set ylabel "{/Symbol s}_t (canali)"
+
+set xrange [.5:]
+
+set output "out/plotgiovedisigmasR1.pdf"
+plot "tmp/giovedi11_1.root.time.R1" u 0:1:2 with yerrorbars
+set output "out/plotgiovedisigmasR2.pdf"
+plot "tmp/giovedi11_1.root.time.R2" u 0:1:2 with yerrorbars

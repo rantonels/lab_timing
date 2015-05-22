@@ -174,15 +174,26 @@ def timesig():
     print
     print "calcolo delle sigma temporali"
 
-    for f in TLIST:
-        print f
+    for i in [1,2]:
 
-        call = "bin/timegaussians data/"+f+".root %d %d"%(t_binnum,t_binsize)+" "+"tmp/"+f+".time"
+        print "CANALE %d"%i
+
+        call = "bin/timegaussians data/giovedi11_1.root %d %d %d tmp/giovedi11_1.root.time.R%d"%(t_binnum,t_binsize,i,i)
         print call
         ret = subprocess.call(call,shell=True)
         if (ret>0):
-            print >> sys.stderr, "analisi.py ERRORE: timegaussians e' stato terminato con errore"
+            print >> sys.stderr, "ERRORE giovedi"
             sys.exit()
+
+        for f in TLIST:
+            print f
+
+            call = "bin/timegaussians data/"+f+".root %d %d %d"%(1,1000,i)+" "+"tmp/"+f+".time.R%d"%i
+            print call
+            ret = subprocess.call(call,shell=True)
+            if (ret>0):
+                print >> sys.stderr, "analisi.py ERRORE: timegaussians e' stato terminato con errore"
+                sys.exit()
 
 
 def bundletimesigs():
@@ -191,22 +202,37 @@ def bundletimesigs():
 
     print
     print "raccoglimento sigma temporali..."
+
+
+    #j = open("tmp/timesigmas",'w')
     
-    j = open("tmp/timesigmas",'w')
-    
-    for i in range(len(TLIST)):
-        f = TLIST[i]
-        rit = ritardi[i]
-        counter = 0
-        for l in open("tmp/"+f+".time",'r').readlines():
-            v,verr = [float(x) for x in l.split(',')]
+    #for i in range(len(TLIST)):
+    #    f = TLIST[i]
+    #    rit = ritardi[i]
+    #    counter = 0
+    #    for l in open("tmp/"+f+".time",'r').readlines():
+    #        v,verr = [float(x) for x in l.split(',')]
 
-            if counter != 0:
-                j.write("%f\t%d\t%f\t%f\n"%(rit,counter,v,verr))
+    #        if counter != 0:
+    #            j.write("%f\t%d\t%f\t%f\n"%(rit,counter,v,verr))
 
-            counter += 1
+    #        counter += 1
 
-    j.close()
+    #j.close()
+
+    for ch in [1,2]:
+        j = open("tmp/timesigmasR%d"%ch,'w')
+        for i in range(len(TLIST)):
+                f = TLIST[i]
+                rit = ritardi[i]
+                counter = 0
+                for l in open("tmp/"+f+".time.R%d"%ch,'r').readlines():
+                    v,verr = [float(x) for x in l.split(',')]
+
+                    j.write("%f\t%f\t%f\n"%(rit,v,verr))
+
+                    counter+=1
+        j.close()
 
 
 def analisi():

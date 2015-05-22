@@ -16,9 +16,10 @@ int main(int argc, char** argv){
 	
 	int numBins = atoi(argv[2]);
 	int binSize = atoi(argv[3]);
+	int chNum = atoi(argv[4]);
 
 	std::ofstream outf;
-	outf.open(argv[4],std::ofstream::out);
+	outf.open(argv[5],std::ofstream::out);
 
 	TH1F *h1; 
 	
@@ -29,8 +30,14 @@ int main(int argc, char** argv){
 	float ch1,ch2,ch3,ch0,temp,ene;
 	pjmca->SetBranchAddress("ch0",&ch0);
 	pjmca->SetBranchAddress("ch1",&ch1);
-	pjmca->SetBranchAddress("ch2",&ch2);
-	pjmca->SetBranchAddress("ch3",&ch3);
+	//pjmca->SetBranchAddress("ch2",&ch2);
+	//pjmca->SetBranchAddress("ch3",&ch3);
+
+	float chan;
+	if (chNum == 1)
+		pjmca->SetBranchAddress("ch2",&chan);
+	else if (chNum == 2)
+		pjmca->SetBranchAddress("ch3",&chan);
 
 	for (int b = 0; b < numBins; b++)
 	{
@@ -45,7 +52,7 @@ int main(int argc, char** argv){
 	{
 		pjmca->GetEntry(i);
 
-		if (ch3>(b*binSize) && ch3<((b+1)*binSize))
+		if (chan>(b*binSize) && chan<((b+1)*binSize))
 		{
 			h1->Fill(ch1);
 			counter++;
