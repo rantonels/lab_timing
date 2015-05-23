@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.2.17)  18 MAY 2015 21:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.2.17)  22 MAY 2015 17:19
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -812,20 +812,20 @@ Package csquotes Info: ... found 'babel' package.
  (./timing.aux)
 \openout1 = `timing.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Info: Redefining \it@ocap on input line 28.
-LaTeX Info: Redefining \it@ccap on input line 28.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Info: Redefining \it@ocap on input line 30.
+LaTeX Info: Redefining \it@ccap on input line 30.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -887,15 +887,15 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \celsius on input line 28.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 28.
+LaTeX Info: Redefining \celsius on input line 30.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 30.
 
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 28.
-Package gensymb Info: Using \Omega for \ohm on input line 28.
+LaTeX Info: Redefining \ohm on input line 30.
+Package gensymb Info: Using \Omega for \ohm on input line 30.
 
 Package gensymb Warning: Not defining \micro.
 
@@ -986,17 +986,17 @@ Dictionary: translator-basic-dictionary, Language: English
 File: siunitx-abbreviations.cfg 2014/10/01 v2.6c siunitx: Abbreviated units
 )
 \c__siunitx_mathsf_int=\count175
-LaTeX Font Info:    Try loading font information for U+lasy on input line 28.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 30.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 28.
+LaTeX Font Info:    Try loading font information for U+msa on input line 30.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 28.
+LaTeX Font Info:    Try loading font information for U+msb on input line 30.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1005,53 +1005,95 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 44.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 48.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 44.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 48.
 
-Underfull \hbox (badness 10000) in paragraph at lines 53--54
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 63--64
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--70
+Underfull \hbox (badness 10000) in paragraph at lines 67--68
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--74
 
  []
 
 [1]
-Underfull \hbox (badness 10000) in paragraph at lines 87--88
+Underfull \hbox (badness 10000) in paragraph at lines 91--92
 
  []
 
-<../out/chio/Guadagno_R1.pdf, id=21, 361.35pt x 216.81pt>
+<../out/plot1730lin.pdf, id=21, 361.35pt x 216.81pt>
+File: ../out/plot1730lin.pdf Graphic file (type pdf)
+
+<use ../out/plot1730lin.pdf>
+Package pdftex.def Info: ../out/plot1730lin.pdf used on input line 101.
+(pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   \hfill 
+l.105 \hspace{\hfill}
+                     
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \hfill 
+l.105 \hspace{\hfill}
+                     
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+<../out/plot1730log.pdf, id=22, 361.35pt x 216.81pt>
+File: ../out/plot1730log.pdf Graphic file (type pdf)
+
+<use ../out/plot1730log.pdf>
+Package pdftex.def Info: ../out/plot1730log.pdf used on input line 109.
+(pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--115
+
+ []
+
+[2 <../out/plot1730lin.pdf> <../out/plot1730log.pdf
+
+pdfTeX warning: pdflatex (file ../out/plot1730log.pdf): PDF inclusion: multiple
+ pdfs with page group included in a single page
+>] <../out/chio/Guadagno_R1.pdf, id=43, 361.35pt x 216.81pt>
 File: ../out/chio/Guadagno_R1.pdf Graphic file (type pdf)
 
 <use ../out/chio/Guadagno_R1.pdf>
-Package pdftex.def Info: ../out/chio/Guadagno_R1.pdf used on input line 108.
+Package pdftex.def Info: ../out/chio/Guadagno_R1.pdf used on input line 131.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
-<../out/chio/Guadagno_R2.pdf, id=22, 361.35pt x 216.81pt>
+<../out/chio/Guadagno_R2.pdf, id=44, 361.35pt x 216.81pt>
 File: ../out/chio/Guadagno_R2.pdf Graphic file (type pdf)
 
 <use ../out/chio/Guadagno_R2.pdf>
-Package pdftex.def Info: ../out/chio/Guadagno_R2.pdf used on input line 116.
+Package pdftex.def Info: ../out/chio/Guadagno_R2.pdf used on input line 139.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 104--121
-[]$[]$ 
- []
 
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 198--199
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 231--232
 
  []
 
@@ -1060,90 +1102,130 @@ Underfull \hbox (badness 10000) in paragraph at lines 198--199
 pdfTeX warning: pdflatex (file ../out/chio/Guadagno_R2.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
 >]
-Underfull \hbox (badness 10000) in paragraph at lines 203--204
+Underfull \hbox (badness 10000) in paragraph at lines 236--237
 
  []
 
-<../out/chio/Cal_DnDt.pdf, id=48, 361.35pt x 216.81pt>
+<../out/chio/Cal_DnDt.pdf, id=65, 361.35pt x 216.81pt>
 File: ../out/chio/Cal_DnDt.pdf Graphic file (type pdf)
 
 <use ../out/chio/Cal_DnDt.pdf>
-Package pdftex.def Info: ../out/chio/Cal_DnDt.pdf used on input line 209.
+Package pdftex.def Info: ../out/chio/Cal_DnDt.pdf used on input line 242.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
-<../out/chio/Residui_cal_DnDt.pdf, id=49, 361.35pt x 216.81pt>
+<../out/chio/Residui_cal_DnDt.pdf, id=66, 361.35pt x 216.81pt>
 File: ../out/chio/Residui_cal_DnDt.pdf Graphic file (type pdf)
 
 <use ../out/chio/Residui_cal_DnDt.pdf>
-Package pdftex.def Info: ../out/chio/Residui_cal_DnDt.pdf used on input line 21
-7.
+Package pdftex.def Info: ../out/chio/Residui_cal_DnDt.pdf used on input line 25
+0.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 205--222
-[]$[]$ 
- []
-
-<../out/chio/tempo_residui.pdf, id=50, 361.35pt x 216.81pt>
+<../out/chio/tempo_residui.pdf, id=67, 361.35pt x 216.81pt>
 File: ../out/chio/tempo_residui.pdf Graphic file (type pdf)
 
 <use ../out/chio/tempo_residui.pdf>
-Package pdftex.def Info: ../out/chio/tempo_residui.pdf used on input line 255.
+Package pdftex.def Info: ../out/chio/tempo_residui.pdf used on input line 288.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
-<../out/chio/tempo_ritardores.pdf, id=51, 361.35pt x 216.81pt>
+<../out/chio/tempo_ritardores.pdf, id=68, 361.35pt x 216.81pt>
 File: ../out/chio/tempo_ritardores.pdf Graphic file (type pdf)
 
 <use ../out/chio/tempo_ritardores.pdf>
-Package pdftex.def Info: ../out/chio/tempo_ritardores.pdf used on input line 26
-3.
+Package pdftex.def Info: ../out/chio/tempo_ritardores.pdf used on input line 29
+6.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
-
-Overfull \hbox (17.0pt too wide) in paragraph at lines 251--268
-[]$[]$ 
- []
-
-[4 <../out/chio/Cal_DnDt.pdf> <../out/chio/Residui_cal_DnDt.pdf
+ [4 <../out/chio/Cal_DnDt.pdf> <../out/chio/Residui_cal_DnDt.pdf
 
 pdfTeX warning: pdflatex (file ../out/chio/Residui_cal_DnDt.pdf): PDF inclusion
 : multiple pdfs with page group included in a single page
-> <../out/chio/tempo_residui.pdf
+>] <../out/plottimesigmas.pdf, id=89, 361.35pt x 216.81pt>
+File: ../out/plottimesigmas.pdf Graphic file (type pdf)
 
-pdfTeX warning: pdflatex (file ../out/chio/tempo_residui.pdf): PDF inclusion: m
-ultiple pdfs with page group included in a single page
-> <../out/chio/tempo_ritardores.pdf
+<use ../out/plottimesigmas.pdf>
+Package pdftex.def Info: ../out/plottimesigmas.pdf used on input line 331.
+(pdftex.def)             Requested size: 271.01184pt x 162.60709pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 335--336
+
+ []
+
+[5 <../out/chio/tempo_residui.pdf> <../out/chio/tempo_ritardores.pdf
 
 pdfTeX warning: pdflatex (file ../out/chio/tempo_ritardores.pdf): PDF inclusion
 : multiple pdfs with page group included in a single page
->] [5] [6] (./timing.aux)
+> <../out/plottimesigmas.pdf
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+pdfTeX warning: pdflatex (file ../out/plottimesigmas.pdf): PDF inclusion: multi
+ple pdfs with page group included in a single page
+>] <../out/Banda.pdf, id=124, 361.35pt x 216.81pt>
+File: ../out/Banda.pdf Graphic file (type pdf)
+ <use ../out/Banda.pdf>
+Package pdftex.def Info: ../out/Banda.pdf used on input line 343.
+(pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
- ) 
+<../out/Banda2.pdf, id=125, 361.35pt x 216.81pt>
+File: ../out/Banda2.pdf Graphic file (type pdf)
+ <use ../out/Banda2.pdf>
+Package pdftex.def Info: ../out/Banda2.pdf used on input line 349.
+(pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
+
+<../out/Cutoff.pdf, id=126, 361.35pt x 216.81pt>
+File: ../out/Cutoff.pdf Graphic file (type pdf)
+ <use ../out/Cutoff.pdf>
+Package pdftex.def Info: ../out/Cutoff.pdf used on input line 357.
+(pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
+
+<../out/Cutoff2.pdf, id=127, 361.35pt x 216.81pt>
+File: ../out/Cutoff2.pdf Graphic file (type pdf)
+ <use ../out/Cutoff2.pdf>
+Package pdftex.def Info: ../out/Cutoff2.pdf used on input line 363.
+(pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 339--369
+
+ []
+
+[6 <../out/Banda.pdf> <../out/Banda2.pdf
+
+pdfTeX warning: pdflatex (file ../out/Banda2.pdf): PDF inclusion: multiple pdfs
+ with page group included in a single page
+> <../out/Cutoff.pdf
+
+pdfTeX warning: pdflatex (file ../out/Cutoff.pdf): PDF inclusion: multiple pdfs
+ with page group included in a single page
+> <../out/Cutoff2.pdf
+
+pdfTeX warning: pdflatex (file ../out/Cutoff2.pdf): PDF inclusion: multiple pdf
+s with page group included in a single page
+>] (./timing.aux) ) 
 Here is how much of TeX's memory you used:
- 14421 strings out of 494968
- 280367 string characters out of 6179833
- 402956 words of memory out of 5000000
- 17434 multiletter control sequences out of 15000+600000
- 21057 words of font info for 66 fonts, out of 8000000 for 9000
+ 14469 strings out of 494968
+ 281282 string characters out of 6179833
+ 403963 words of memory out of 5000000
+ 17473 multiletter control sequences out of 15000+600000
+ 23264 words of font info for 77 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,16n,39p,10373b,771s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </hom
-e/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/riccar
-do/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/riccardo/.texm
-f-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/riccardo/.texmf-var/fo
-nts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/riccardo/.texmf-var/fonts/pk/l
-jfour/jknappen/ec/ecrm1200.600pk> </home/riccardo/.texmf-var/fonts/pk/ljfour/jk
-nappen/ec/ecrm1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on timing.pdf (7 pages, 180185 bytes).
+ 38i,16n,39p,10373b,772s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
+0800.600pk> </home/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600
+pk> </home/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </ho
+me/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/ricca
+rdo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/riccardo/.tex
+mf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/riccardo/.texmf-var/f
+onts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/riccardo/.texmf-var/fonts/pk/
+ljfour/jknappen/ec/ecrm1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on timing.pdf (7 pages, 278016 bytes).
 PDF statistics:
- 340 PDF objects out of 1000 (max. 8388607)
- 105 compressed objects within 2 object streams
+ 423 PDF objects out of 1000 (max. 8388607)
+ 159 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

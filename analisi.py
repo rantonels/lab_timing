@@ -15,7 +15,7 @@ PLIST = []
 
 
 ##costanti per le sigma temporali
-t_binsize = 22
+t_binsize = 33
 t_binnum = 16
 TLIST = [
             "anticipo1ns",

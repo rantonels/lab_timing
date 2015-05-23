@@ -25,14 +25,18 @@
 
 \DeclareGraphicsExtensions{.pdf}
 
+
+
 \begin{document}
 
-\author{Riccardo Antonelli, Federico Chiossi, Patato Schiavi}
+\setlength\parindent{0pt}
+
+\author{Riccardo Antonelli, Federico Chiossi, Daniele Schiavi}
 \title{Timing}
 
 \maketitle
 
-\section{Obiettivi}
+\section*{Obiettivi}
 
 % misura andamento del guadagno dei PMT in funzione della tensione applicata determinando il punto di lavoro ottimale
 % determinare la calibrazione in energia degli scint organici e la ris energetica dell'analisi dei Compton edge
@@ -49,7 +53,7 @@
 \end{itemize}
 
 \section*{Fit del profilo Compton}
-
+\label{sec:fitmethod}
 Per la calibrazione dei rivelatori in energia dei raggi X e in risoluzione energetica forniamo i risultati di due metodi: il primo (\textbf{SEMIGAUSS}), basato su i risultati di una simulazione Monte-Carlo fatta dal professor Viesti, che utilizza i valori di un fit Gaussiano sui due profili Compton troncati. Il secondo (metodo \textbf{FIT}) è un modello semi-empirico da noi sviluppato basato su un fit esplicito di un profilo Compton.\\
 
 Come profilo energetico "grezzo" (senza considerare la risoluzione dell'apparato) consideriamo la distribuzione di Klein-Nishina integrata. Definiamo $\text{edge}_{1,2} \approx \SI{340}{\kilo\electronvolt}, \SI{1062}{\kilo\electronvolt}$ gli edge Compton per i fotoni rispettivamente a $511$ e $\SI{1275}{\kilo\electronvolt}$. Se $c$ è il canale, e $(y,e_1,e_2,k)$ sono parametri che descrivono la distribuzione, definiamo $E_0$ la stima dell'energia al canale $0$:
@@ -89,9 +93,28 @@ con un range ragionevole per $j$.\\
 La distribuzione finale è fittata ai dati mediante un metodo a forza bruta; lo spazio dei parametri è diviso in celle e queste sono esplorate per trovare il set che minimizza lo scarto quadratico totale. Si ripete la ricerca raffinando la griglia. Lo svantaggio di questo metodo è il costo computazionale: per avere tempi di esecuzione nell'ordine di alcuni minuti è necessario fornire al programma un range non eccessivo in cui far variare i parametri. 
 
 Un tipico esempio dell'utilizzo del programma è mostrato di sequito.
-(Mettere immagine)
+
+
+\begin{minipage}{0.45\linewidth}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth,keepaspectratio]{../out/plot1730lin}
+\caption{\small{Esempio di fit (curva nera). La curva blu rappresenta il profilo Compton pre-convoluzione corrispondente ai parametri di fit ed evidenzia la stima della posizione originaria del Compton edge.}}
+\end{figure}
+\end{minipage}
+\hspace{\hfill}
+\begin{minipage}{0.45\linewidth}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth,keepaspectratio]{../out/plot1730log}
+\caption{\small{Grafico a fianco in scala logaritmica.}}
+\end{figure}
+\end{minipage}
+
+~\\
+
 Si noti che il fit riesce ad approssimare bene anche il compton edge a 1275 keV. Per dare una stima dell'errore sui valori ottenuti in grafico è anche mostrato il fit in cui il parametro $\sigma$ (o compton edge) è stato incrementato (o diminuito) di un 20\% (forse 30\%?) dal valore ottimale.
-\section{Analisi}
+\section*{Analisi}
 
 \subsection*{Guadagno - Voltaggio}
 
@@ -124,31 +147,8 @@ Usando il metodo (FIT) si trovano risultati analoghi.
 \subsection*{Risoluzione energetica}
 
 \subsubsection*{Metodo \textbf{SEMIGAUSS}} 
-Calcoliamo il parametro $\sigma/C$ per il voltaggio di circa 1730 V per il rivelatore 1 e 2 sia per il compton edge dei fotoni di 511 keV e che per quello di 1275 keV. Dai grafici sulle dispense fatti da viesti posssiamo stimare qialitativamente la risoluzione energetica e lo shift dal centroide misurato al vero valore del compton edge. Introduciamo per la calibrazione i parametri $m,q$ secondo $\text{energia} = m \;\text{canali}+ q$.
 
-\begin{table}[!hp]
-\caption{\small{Calibrazione in energia per i rivelatori}}
-\centering
-\begin{threeparttable}[b]
-{
-$
-\begin{array}{cccc}
-\toprule
-$Energia fotone (keV)$ & \sigma/C & $Risoluzione energetica (keV)$ & $Shift (keV)$\\
-\midrule
-511$ R1$ & 0.287 \pm 0.005 & 50-65 &  60-85     \\
-1275 $ R1$ & 0.219 \pm 0.013 & 35-50 &  40-80      \\
-511$ R2$ & 0.254 \pm 0.006 &  45-60 &  50-75      \\
-1275 $ R2$ &  0.255 \pm 0.030 &  40-60 & 50-100       \\ 	 
-\bottomrule
-\end{array}
-$
-}
-\end{threeparttable}
-\label{tab:parametrisemigauss}
-\end{table}
-
-\subsubsection*{Metodo \textbf{FIT}}
+Calcoliamo il parametro $\sigma/C$ per il voltaggio di circa 1720 V per il rivelatore 1 e 2 sia per il Compton edge dei fotoni di 511 keV e che per quello di 1275 keV. Dai grafici sulle dispense fatti da Viesti possiamo stimare qualitativamente la risoluzione energetica e lo shift dal centroide misurato al vero valore del Compton edge.
 
 \begin{table}[!hp]
 \caption{\small{Calibrazione in energia per i rivelatori}}
@@ -158,10 +158,43 @@ $
 $
 \begin{array}{ccccc}
 \toprule
+
+ & $Energia fotone (keV)$ & \sigma/C & $Risoluzione energetica (keV)$ & $Shift (keV)$\\
+\midrule
+\multirow{2}*{$R1$}
+ &511 & 0.287 \pm 0.005 & 50-65 &  60-85     \\
+&1275  & 0.219 \pm 0.013 & 35-50 &  40-80      \\
+\multirow{2}*{$R2$}
+&511 & 0.254 \pm 0.006 &  45-60 &  50-75      \\
+&1275 &  0.255 \pm 0.030 &  40-60 & 50-100       \\ 	 
+\bottomrule
+\end{array}
+$
+}
+\end{threeparttable}
+\label{tab:parametri}
+\end{table}
+
+Per ognuno dei rivelatori possiamo dare una stima approsimativa della calibrazione in energia tale per cui $\text{energia} = m \cdot \text{canale} + q $.
+Otteniamo rispettivamente per il rivelatore R1 e R2 $m=\SI{1.91}{\kilo\electronvolt}/\text{canale}$, $q = -\SI{175.7}{\kilo\electronvolt}$ e $m=\SI{1.77}{\kilo\electronvolt}/\text{canale}$, $q = -\SI{108.8}{\kilo\electronvolt}$.  
+
+
+\subsubsection*{Metodo \textbf{FIT}}
+
+Effettuiamo dei fit espliciti come descritto precedentemente. I parametri $e_1$, $e_2$, le posizioni dei Compton edge in canali, permettono di ricostruire immediatamente le calibrazioni in energia. $\sigma/C$ non è altro che il parametro $\gamma$; oltre a questo, in tabella riportiamo come valore nominale la risoluzione energetica al primo picco, $\gamma \cdot \SI{511}{\kilo\electronvolt}$.
+
+\begin{table}[!h]
+\caption{\small{Calibrazione in energia per i rivelatori}}
+\centering
+\begin{threeparttable}[b]
+{
+$
+\begin{array}{ccccc}
+\toprule
 $Rivelatore$ & \sigma/C & $Risoluzione a $\SI{511}{keV} & m & q  \\
 \midrule
-R1 & 0.15 & \SI{76}{keV} & \SI{1.45}{keV}/\text{canale} & \SI{140.8}{keV} \\ 
-R2 & 0.14 & \SI{72}{keV} & \SI{1.72}{keV}/\text{canale} & \SI{119.2}{keV} \\
+R1 & 0.15 & \SI{76}{keV} & \SI{1.37}{keV}/\text{canale} & \SI{-11.4}{keV} \\ 
+R2 & 0.14 & \SI{72}{keV} & \SI{1.63}{keV}/\text{canale} & \SI{-33.7}{keV} \\
 \bottomrule
 \end{array}
 $
@@ -177,23 +210,23 @@ $
 %
 %0.147942 gamma
 %
-%1.45 m
+%1.37 m
 %
-%140.8 q
+%-11.4 q
 %
 %ch2
 %
 %229.21 e1
 %672 e2
 %
-%1.72 m
+%1.63 m
 %
-%119.16 q
+%-33.7 q
 %
 %0.135861 gamma
 
 
-\subsection*{Risoluzione temporale}
+\subsection*{Calibrazione ritardo}
 
 Vogliamo determinare il ritardo che ottimizza la risoluzione temporale dell'apparato.\\
 
@@ -220,7 +253,7 @@ Risulta $t = (0.0247 \pm 0.0002)\, \si{\nano\second}\,\mathrm{canali}^{-1} \cdot
 \end{minipage}
 \end{minipage}
 
-\begin{table}[!hp]
+\begin{table}[!h]
 \caption{\small{Dati della calibrazione tempo-canale}}
 \centering
 \begin{threeparttable}[b]
@@ -248,7 +281,7 @@ $
 
 \`E necessario stimare inoltre il ritardo corrispondente ai cavi LEMO. Fittiamo il ritardo misurato con la lunghezza totale di LEMO:
 
-\begin{minipage}{\linewidth}
+
 \begin{minipage}{0.45\linewidth}
 \centering
 \begin{figure}[H]
@@ -264,9 +297,9 @@ $
 \caption{\small{Residui ritardo per lunghezza dei cavi LEMO}}
 \end{figure}
 \end{minipage}
-\end{minipage}
 
-\begin{table}[!hp]
+
+\begin{table}[!h]
 \caption{\small{Dati della calibrazione tempo-canale}}
 \centering
 \begin{threeparttable}[b]
@@ -287,8 +320,53 @@ $
 \end{threeparttable}
 \label{tab:tempo_ritardo}
 \end{table}
-Dal fit lineare risulta: ritardo (ns) $= 0.0494 \pm 0.0005 (ns/cm) \cdot \text{Lunghezza (cm)} + (30.211 \pm 0.015 ns)$ . In buon occordo con il dato teorico di 0.05 ns/cm. Rispetto al ritardo predefinito (30 ns) si sono aggiunti tramite una I, cavi da 10, 20 e 50 cm. Possiamo stimare il ritardo dovuto alla I estrapolando dal fit il ritardo a 0 cm e sottraendo il ritardo predefinito ottenendo $ 0.405 \pm 0.013 $ ns.
+Dal fit lineare (escluso lunghezza $=0$) risulta: ritardo $= 0.0494 \pm 0.0005 \, \si{\nano\second/\centi\metre} \cdot \text{lunghezza} + (30.211 \pm 0.015 \,\si{\nano\second})$, in buon occordo con il dato teorico di $\SI{0.05}{\nano\second/\centi\metre}$. Rispetto al ritardo predefinito (30 ns) si sono aggiunti tramite una I, cavi da 10, 20 e 50 cm. Il ritardo anomalo per $l=0$ è ascrivibile all'assenza del connettore ad I in quel caso. Possiamo stimare il ritardo dovuto alla I estrapolando dal fit il ritardo a 0 cm e sottraendo il ritardo predefinito ottenendo $ 0.405 \pm 0.013 $ ns.
 
-\section{Conclusioni}
+\subsection*{Risoluzione temporale}
+
+Riportiamo l'andamento della risoluzione temporale totale, ottenuta mediante fit gaussiano, in funzione del ritardo in cavi LEMO:
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=.75]{../out/plottimesigmas}
+\caption{\small{Risoluzione temporale in funzione del ritardo LEMO}}
+\end{figure}
+
+Osserviamo la presenza di un ritardo ottimale intorno a $\sim \SI{8.5}{\nano\second}$. In tale configurazione acquisiamo uno spettro per circa 20 ore.\\
+
+Da questa acquisizione, selezioniamo subset di eventi dapprima in base a bande energetiche di larghezza $\SI{50}{\kilo\electronvolt}$ e poi usando semirette $\{ E > E_{\text{cutoff}} \}$. Per ogni subset stimiamo la risoluzione energetica dal fit gaussiano dell'istogramma temporale ristretto al subset. Nei grafici riportiamo la risoluzione in funzione rispettivamente dell'inizio banda e dell'energia di cutoff.
+
+~\\
+\begin{minipage}{0.45\linewidth}
+	\centering
+	\begin{figure}[H]
+	\includegraphics[width=\columnwidth,keepaspectratio]{../out/Banda}
+	\caption{\small{$\sigma_t$ nelle bande energetiche}}
+	\end{figure}
+\end{minipage}
+\begin{minipage}{0.45\linewidth}
+	\begin{figure}[H]
+	\includegraphics[width=\columnwidth,keepaspectratio]{../out/Banda2}
+	\caption{\small{dettaglio grafico a fianco}}
+	\end{figure}
+\end{minipage}
+~\\
+\begin{minipage}{0.45\linewidth}
+	\centering
+	\begin{figure}[H]
+	\includegraphics[width=\columnwidth,keepaspectratio]{../out/Cutoff}
+	\caption{\small{$\sigma_t$ sopra il cutoff}}
+	\end{figure}
+\end{minipage}
+\begin{minipage}{0.45\linewidth}
+	\begin{figure}[H]
+	\includegraphics[width=\columnwidth,keepaspectratio]{../out/Cutoff2}
+	\caption{\small{dettaglio grafico a fianco.}}
+	\end{figure}
+\end{minipage}
+~\\~\\
+(Abbiamo riportato i dati fino a circa $\SI{1000}{\kilo\electronvolt}$, ma è possibile che al di sopra di $500-600\,\si{\kilo\electronvolt}$ i risultati siano affetti da scarsa accuratezza dovuta a bassa statistica). Si identifica immediatamente un minimo della risoluzione temporale in corrispondenza della banda energetica $\sim [200 , 250] \, \si{\kilo\electronvolt}$ e della semiretta $\sim [250 , \infty] \, \si{\kilo\electronvolt}$.
+
+\section*{Conclusioni}
 
 \end{document}

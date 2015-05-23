@@ -1,7 +1,6 @@
 
 set term pdf
 
-unset key 
 
 # ISTOGRAMMI
 
@@ -13,7 +12,7 @@ set output "out/plot1730lin.pdf"
 
 set xrange [150:800]
 
-plot "tmp/1730HV100GC25min_h2" u 0:1 with steps title "Dati", "tmp/1730HV100GC25min_h2.ccurve" u 1:2 with lines title "Fit" lt rgb "black", "tmp/1730HV100GC25min_h2.craw" u 1:2 with lines title "Fit (senza convoluzione)", "tmp/1730HV100GC25min_h2.cvar" u 1:2 with lines title "Fit (variazione sigma +10%)"
+plot "tmp/1730HV100GC25min_h2" u 0:1 with steps title "Dati", "tmp/1730HV100GC25min_h2.ccurve" u 1:2 with lines title "Fit" lt rgb "black", "tmp/1730HV100GC25min_h2.craw" u 1:2 with lines title "Fit (senza convoluzione)"
 
 
 set output "out/plot1730log.pdf"
