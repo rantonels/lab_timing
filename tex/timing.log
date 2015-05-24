@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.2.17)  22 MAY 2015 17:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.2.17)  23 MAY 2015 17:00
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1092,17 +1092,12 @@ Package pdftex.def Info: ../out/chio/Guadagno_R2.pdf used on input line 139.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 231--232
-
- []
-
 [3 <../out/chio/Guadagno_R1.pdf> <../out/chio/Guadagno_R2.pdf
 
 pdfTeX warning: pdflatex (file ../out/chio/Guadagno_R2.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
 >]
-Underfull \hbox (badness 10000) in paragraph at lines 236--237
+Underfull \hbox (badness 10000) in paragraph at lines 235--236
 
  []
 
@@ -1110,22 +1105,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 236--237
 File: ../out/chio/Cal_DnDt.pdf Graphic file (type pdf)
 
 <use ../out/chio/Cal_DnDt.pdf>
-Package pdftex.def Info: ../out/chio/Cal_DnDt.pdf used on input line 242.
+Package pdftex.def Info: ../out/chio/Cal_DnDt.pdf used on input line 241.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
 <../out/chio/Residui_cal_DnDt.pdf, id=66, 361.35pt x 216.81pt>
 File: ../out/chio/Residui_cal_DnDt.pdf Graphic file (type pdf)
 
 <use ../out/chio/Residui_cal_DnDt.pdf>
-Package pdftex.def Info: ../out/chio/Residui_cal_DnDt.pdf used on input line 25
-0.
+Package pdftex.def Info: ../out/chio/Residui_cal_DnDt.pdf used on input line 24
+9.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
 <../out/chio/tempo_residui.pdf, id=67, 361.35pt x 216.81pt>
 File: ../out/chio/tempo_residui.pdf Graphic file (type pdf)
 
 <use ../out/chio/tempo_residui.pdf>
-Package pdftex.def Info: ../out/chio/tempo_residui.pdf used on input line 288.
+Package pdftex.def Info: ../out/chio/tempo_residui.pdf used on input line 287.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
 <../out/chio/tempo_ritardores.pdf, id=68, 361.35pt x 216.81pt>
@@ -1133,7 +1128,7 @@ File: ../out/chio/tempo_ritardores.pdf Graphic file (type pdf)
 
 <use ../out/chio/tempo_ritardores.pdf>
 Package pdftex.def Info: ../out/chio/tempo_ritardores.pdf used on input line 29
-6.
+5.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
  [4 <../out/chio/Cal_DnDt.pdf> <../out/chio/Residui_cal_DnDt.pdf
 
@@ -1143,10 +1138,10 @@ pdfTeX warning: pdflatex (file ../out/chio/Residui_cal_DnDt.pdf): PDF inclusion
 File: ../out/plottimesigmas.pdf Graphic file (type pdf)
 
 <use ../out/plottimesigmas.pdf>
-Package pdftex.def Info: ../out/plottimesigmas.pdf used on input line 331.
+Package pdftex.def Info: ../out/plottimesigmas.pdf used on input line 332.
 (pdftex.def)             Requested size: 271.01184pt x 162.60709pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 335--336
+Underfull \hbox (badness 10000) in paragraph at lines 336--337
 
  []
 
@@ -1161,44 +1156,91 @@ ple pdfs with page group included in a single page
 >] <../out/Banda.pdf, id=124, 361.35pt x 216.81pt>
 File: ../out/Banda.pdf Graphic file (type pdf)
  <use ../out/Banda.pdf>
-Package pdftex.def Info: ../out/Banda.pdf used on input line 343.
+Package pdftex.def Info: ../out/Banda.pdf used on input line 344.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
-<../out/Banda2.pdf, id=125, 361.35pt x 216.81pt>
-File: ../out/Banda2.pdf Graphic file (type pdf)
- <use ../out/Banda2.pdf>
-Package pdftex.def Info: ../out/Banda2.pdf used on input line 349.
+<../out/Banda3.pdf, id=125, 361.35pt x 216.81pt>
+File: ../out/Banda3.pdf Graphic file (type pdf)
+ <use ../out/Banda3.pdf>
+Package pdftex.def Info: ../out/Banda3.pdf used on input line 350.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
 <../out/Cutoff.pdf, id=126, 361.35pt x 216.81pt>
 File: ../out/Cutoff.pdf Graphic file (type pdf)
  <use ../out/Cutoff.pdf>
-Package pdftex.def Info: ../out/Cutoff.pdf used on input line 357.
+Package pdftex.def Info: ../out/Cutoff.pdf used on input line 358.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
-<../out/Cutoff2.pdf, id=127, 361.35pt x 216.81pt>
-File: ../out/Cutoff2.pdf Graphic file (type pdf)
- <use ../out/Cutoff2.pdf>
-Package pdftex.def Info: ../out/Cutoff2.pdf used on input line 363.
+<../out/Cutoff3.pdf, id=127, 361.35pt x 216.81pt>
+File: ../out/Cutoff3.pdf Graphic file (type pdf)
+ <use ../out/Cutoff3.pdf>
+Package pdftex.def Info: ../out/Cutoff3.pdf used on input line 364.
 (pdftex.def)             Requested size: 203.83417pt x 122.29938pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 339--369
+Underfull \hbox (badness 10000) in paragraph at lines 340--370
 
  []
 
-[6 <../out/Banda.pdf> <../out/Banda2.pdf
+! Undefined control sequence.
+l.373 Abbiamo visto come il metodo \bbold
+                                         {FIT} si configura come un'alternat...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-pdfTeX warning: pdflatex (file ../out/Banda2.pdf): PDF inclusion: multiple pdfs
+
+Underfull \hbox (badness 10000) in paragraph at lines 373--374
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 375--376
+
+ []
+
+! Undefined control sequence.
+l.377 ...azione energetica fra i due metodi \bbold
+                                                  {FIT} e \bbold{SEMIGAUSS}....
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.377 ...ica fra i due metodi \bbold{FIT} e \bbold
+                                                  {SEMIGAUSS}. Ascriviamo qu...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 377--378
+
+ []
+
+[6 <../out/Banda.pdf> <../out/Banda3.pdf
+
+pdfTeX warning: pdflatex (file ../out/Banda3.pdf): PDF inclusion: multiple pdfs
  with page group included in a single page
 > <../out/Cutoff.pdf
 
 pdfTeX warning: pdflatex (file ../out/Cutoff.pdf): PDF inclusion: multiple pdfs
  with page group included in a single page
-> <../out/Cutoff2.pdf
+> <../out/Cutoff3.pdf
 
-pdfTeX warning: pdflatex (file ../out/Cutoff2.pdf): PDF inclusion: multiple pdf
+pdfTeX warning: pdflatex (file ../out/Cutoff3.pdf): PDF inclusion: multiple pdf
 s with page group included in a single page
->] (./timing.aux) ) 
+>]
+Underfull \hbox (badness 10000) in paragraph at lines 379--380
+
+ []
+
+[7] (./timing.aux) ) 
 Here is how much of TeX's memory you used:
  14469 strings out of 494968
  281282 string characters out of 6179833
@@ -1207,25 +1249,25 @@ Here is how much of TeX's memory you used:
  23264 words of font info for 77 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  38i,16n,39p,10373b,772s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
-0800.600pk> </home/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600
-pk> </home/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </ho
-me/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/ricca
-rdo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/riccardo/.tex
-mf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/riccardo/.texmf-var/f
-onts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/riccardo/.texmf-var/fonts/pk/
-ljfour/jknappen/ec/ecrm1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-mi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on timing.pdf (7 pages, 278016 bytes).
+ </home/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecr
+m0800.600pk> </home/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.60
+0pk> </home/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </h
+ome/riccardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/ricc
+ardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/riccardo/.te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/riccardo/.texmf-var/
+fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/riccardo/.texmf-var/fonts/pk
+/ljfour/jknappen/ec/ecrm1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on timing.pdf (8 pages, 279228 bytes).
 PDF statistics:
- 423 PDF objects out of 1000 (max. 8388607)
- 159 compressed objects within 2 object streams
+ 426 PDF objects out of 1000 (max. 8388607)
+ 161 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
